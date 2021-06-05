@@ -13,7 +13,7 @@
 			<i class="fa fa-search"></i>
 		</button>
 	</div>
-	<div class="card row-md-5" id="scroll">
+	<div class="card row-md-5" id="scroll" #scrollContent>
 		<table class="table">
 			<tbody>
 				<tr *ngFor="let user of Users | appFilter:searchText;">
