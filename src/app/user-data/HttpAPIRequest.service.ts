@@ -15,13 +15,15 @@ export class HttpAPIRequestService {
   //     })
   //   });
   // }
-
+  datatoGet() : Observable<any>{
+    return this.http.get(this.Url+"/api/fetchUser");
+  }
   datatoDelete(id: string) : Observable<any>{
-    return this.http.delete(this.Url+"/delete/"+id);
+    return this.http.delete(this.Url+"/api/deleteUser/"+id);
   }
 
-  datatoUpdate(id: string, datatoUpdate: {name:string, amount:number, address:string, MobileNumber:number, gift:string}): Observable<any> {
-    return this.http.patch(this.Url+"/update/"+id, datatoUpdate);
+  datatoUpdate(id: string, datatoUpdate: {name:string, amount:number, address:string, mobile:number, gift:string}): Observable<any> {
+    return this.http.patch(this.Url+"/api/updateUser/"+id, datatoUpdate);
   }
 
 }
