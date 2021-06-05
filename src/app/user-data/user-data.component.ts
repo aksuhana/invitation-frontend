@@ -11,7 +11,6 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./user-data.component.css']
 })
 export class UserDataComponent implements OnInit {
-  // posts: Observable<String[]> = this.http.get<any[]>('https://localhost/api/fetchUser');
   modalReference : any;
   searchText = '';
   Users = [];
