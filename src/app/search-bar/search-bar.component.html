@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="input-group">
+    <div class="form-outline">
+      <input list="form1s"  type="search" placeholder="Search" id="form1" class="form-control" [(ngModel)]="searchText" />
+    </div>
+</div>
+
+<!-- <select class="form-control select2" *ngFor="let guest of guests | appFilter:searchText">
+  <option>
+   {{guest.name}}
+  </option>
+</select>  -->
+
+	<!-- <div class="card col-md-3" id="scroll">
+     *ngFor="let guest of guests | appFilter:searchText;">
+      {{guest.name}}
+	</div> -->
+  <div class="card col-md-2" style="margin-left: 20px; margin-top: 0px;" id="scroll" [hidden]="!(searchText.length > 0)" >
+		<table class="table">
+			<tbody>
+				<tr *ngFor="let guest of guests | appFilter:searchText;">
+          <td style="cursor: pointer;" (click)="onSelect(guest)">{{guest.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+<!-- 
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <input class="form-control" id="myInput" type="text" placeholder="Search.."*ngFor="let guest of guests | appFilter:searchText">
+    <ul *ngFor="let guest of guests | appFilter:searchText">
+      <li>{{guest.name}}</li>
+    </ul>
+  </ul>
+</div> -->
+
+<!-- <select class="selectpicker" data-live-search="true">
+  <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
+  <option data-tokens="mustard">Burger, Shake and a Smile</option>
+  <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+</select>  -->
+<app-new-guest></app-new-guest>
