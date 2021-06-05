@@ -1,0 +1,20 @@
+#addNew {
+  margin: 20px;
+}
+#addNew:hover {
+  background-color: rgb(255, 174, 0);
+}
+.form-group {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+form > button {
+  align-items: center;
+}
+#scroll {
+  height: 200px;
+  width: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
+}
