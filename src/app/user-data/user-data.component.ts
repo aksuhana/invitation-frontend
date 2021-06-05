@@ -34,7 +34,9 @@ export class UserDataComponent implements OnInit {
 		let n = Object.keys(resultData).length;
 		this.Users = [];
 		for(let i=0; i<n; i++){
-		this.Users.push(resultData[i]);
+      if(resultData[i].amount!=0){
+        this.Users.push(resultData[i]);
+      }
 		}
 	}
 

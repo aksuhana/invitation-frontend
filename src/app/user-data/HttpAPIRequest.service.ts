@@ -8,13 +8,7 @@ import { Observable } from 'rxjs';
 export class HttpAPIRequestService {
   private Url = "http://localhost:3000"
   constructor(private http: HttpClient) {}
-  // datatoPost(datatoSend : {username:string, email:string, gender:string}): Observable<any>{
-  //   return this.http.post(this.Url+"/send", datatoSend,{
-  //     headers: new HttpHeaders({
-  //       "Content-Type":"application/json"
-  //     })
-  //   });
-  // }
+
   datatoGet() : Observable<any>{
     return this.http.get(this.Url+"/api/fetchUser");
   }
