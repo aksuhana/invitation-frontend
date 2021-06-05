@@ -21,6 +21,42 @@ export class UserDataComponent implements OnInit {
       address: '',
       MobileNumber: 9999999999,
       gift: ''
+    },
+    {
+      _id: '06dff32h34kv9711',
+      FirstName: 'Aditya',
+      LastName : 'Surana',
+      amount: 100,
+      address: '',
+      MobileNumber: 9999999999,
+      gift: ''
+    },
+    {
+      _id: '06dff32h34kv9711',
+      FirstName: 'Aditya',
+      LastName : 'Surana',
+      amount: 2000,
+      address: '',
+      MobileNumber: 9999999999,
+      gift: ''
+    },
+    {
+      _id: '06dff32h34kv9711',
+      FirstName: 'Aditya',
+      LastName : 'Surana',
+      amount: 3,
+      address: '',
+      MobileNumber: 9999999999,
+      gift: ''
+    },
+    {
+      _id: '06dff32h34kv9711',
+      FirstName: 'Aditya',
+      LastName : 'Surana',
+      amount: 4,
+      address: '',
+      MobileNumber: 9999999999,
+      gift: ''
     }];
 	UpdateForm: FormGroup;
 
