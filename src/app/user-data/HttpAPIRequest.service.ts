@@ -20,7 +20,7 @@ export class HttpAPIRequestService {
     return this.http.delete(this.Url+"/delete/"+id);
   }
 
-  datatoUpdate(id: string, datatoUpdate: {FirstName:string, LastName:string, amount:number, address:string, MobileNumber:number, gift:string}): Observable<any> {
+  datatoUpdate(id: string, datatoUpdate: {name:string, amount:number, address:string, MobileNumber:number, gift:string}): Observable<any> {
     return this.http.patch(this.Url+"/update/"+id, datatoUpdate);
   }
 

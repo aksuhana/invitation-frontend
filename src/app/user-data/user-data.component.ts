@@ -12,20 +12,11 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class UserDataComponent implements OnInit {
   modalReference : any;
+  searchText = '';
   Users = [
     {
       _id: '06dff32h34kv9711',
-      FirstName: 'Aditya',
-      LastName : 'Surana',
-      amount: 0,
-      address: '',
-      MobileNumber: 9999999999,
-      gift: ''
-    },
-    {
-      _id: '06dff32h34kv9711',
-      FirstName: 'Aditya',
-      LastName : 'Surana',
+      name: 'Ankit',
       amount: 100,
       address: '',
       MobileNumber: 9999999999,
@@ -33,8 +24,7 @@ export class UserDataComponent implements OnInit {
     },
     {
       _id: '06dff32h34kv9711',
-      FirstName: 'Aditya',
-      LastName : 'Surana',
+      name: 'Shaurya',
       amount: 2000,
       address: '',
       MobileNumber: 9999999999,
@@ -42,8 +32,7 @@ export class UserDataComponent implements OnInit {
     },
     {
       _id: '06dff32h34kv9711',
-      FirstName: 'Aditya',
-      LastName : 'Surana',
+      name: 'Malini',
       amount: 3,
       address: '',
       MobileNumber: 9999999999,
@@ -51,22 +40,36 @@ export class UserDataComponent implements OnInit {
     },
     {
       _id: '06dff32h34kv9711',
-      FirstName: 'Aditya',
-      LastName : 'Surana',
-      amount: 4,
+      name: 'Aditya',
+      amount: 4000,
+      address: '',
+      MobileNumber: 9999999999,
+      gift: ''
+    },
+    {
+      _id: '06dff32h34kv9711',
+      name: 'Aditya Sharma',
+      amount: 4000,
+      address: '',
+      MobileNumber: 9999999999,
+      gift: ''
+    },
+    {
+      _id: '06dff32h34kv9711',
+      name: 'Aditya Surana',
+      amount: 4000,
       address: '',
       MobileNumber: 9999999999,
       gift: ''
     }];
 	UpdateForm: FormGroup;
 
-	editFirstName = ''; editLastName = ''; 	editAmount : number;  editAddress = ''; editMobileNumber : number;
+	editName = ''; 	editAmount : number;  editAddress = ''; editMobileNumber : number;
   editGift = '';
   editId = '';
 
   datatoUpdate = {
-		FirstName: '',
-		LastName : '',
+		name: '',
     amount: 0,
     address: '',
     MobileNumber: 9999999999,
@@ -77,8 +80,7 @@ export class UserDataComponent implements OnInit {
   ngOnInit(): void {
     this.UpdateForm = new FormGroup({
 			'userUpdateData': new FormGroup({
-			'updatedFirstName': new FormControl(null, [Validators.required]),
-			'updatedLastName': new FormControl(null, [Validators.required, ]),
+			'updatedName': new FormControl(null, [Validators.required]),
       'updatedAmount': new FormControl(null, [Validators.required]),
 			'updatedAddress': new FormControl(null, [Validators.required, ]),
       'updatedMobileNumber': new FormControl(null, [Validators.required]),
@@ -103,10 +105,9 @@ export class UserDataComponent implements OnInit {
 		})
 	}
 
-	onEdit(id:string, FirstName:string, LastName:string, amount:number, address:string, MobileNumber:number, gift:string, content:any){
+	onEdit(id:string, name:string, amount:number, address:string, MobileNumber:number, gift:string, content:any){
     console.log("entered id"+ id);
-		this.editFirstName = FirstName;
-    this.editLastName = LastName;
+		this.editName = name;
     this.editAmount = amount;
     this.editAddress = address;
     this.editMobileNumber = MobileNumber;
@@ -117,8 +118,7 @@ export class UserDataComponent implements OnInit {
 
     onUpdate(){
 		console.log("data updating")
-		this.datatoUpdate.FirstName = this.UpdateForm.value.userUpdateData.updatedFirstName;
-		this.datatoUpdate.LastName = this.UpdateForm.value.userUpdateData.updatedLastName;
+		this.datatoUpdate.name = this.UpdateForm.value.userUpdateData.updatedName;
     this.datatoUpdate.amount = this.UpdateForm.value.userUpdateData.updatedAmount,
     this.datatoUpdate.address = this.UpdateForm.value.userUpdateData.updatedAddress,
     this.datatoUpdate.MobileNumber = this.UpdateForm.value.userUpdateData.updatedMobileNumber,
