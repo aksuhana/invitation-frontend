@@ -1,5 +1,6 @@
 #addNew {
   margin: 20px;
+  margin-top: 10px;
 }
 #addNew:hover {
   background-color: rgb(255, 174, 0);
@@ -11,10 +12,6 @@
 form > button {
   align-items: center;
 }
-#scroll {
-  height: 200px;
-  width: 400px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  text-align: justify;
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
 }

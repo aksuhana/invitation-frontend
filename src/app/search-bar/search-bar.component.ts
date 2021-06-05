@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HttpApiService } from "../httpApi.service";
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -7,21 +7,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchBarComponent implements OnInit {
   searchText='';
-  guests = [
-    { name: "Shristi", address: "gdhsgdahs",mobile:"9836352781" },
-    { name: "Aakriti", address: "gdhsgdahs",mobile:"9836352781"},
-    { name: "Radha", address: "gdhsgdahs",mobile:"9836352781" },
-    { name: "Yash", address: "gdhsgdahs",mobile:"9836352781" },
-    { name: "John", address: "gdhsgdahs",mobile:"9836352781" },
-    { name: "Shyam", address: "gdhsgdahs",mobile:"9836352781" },
-    { name: "Azra", address: "gdhsgdahs",mobile:"9836352781" },
-    { name: "Diksha", address: "gdhsgdahs",mobile:"9836352781" }
-  ];
-  constructor() { }
+  guests = [];
+  constructor(private apiServ: HttpApiService) { }
 
   ngOnInit(): void {
   }
+  //add guests data from server to component
+  handler(result:any){
+    let x = Object.keys(result).length;
+    this.guests = [];
+      for(let i=0;i<x;i++)
+      {
+        this.guests.push(result[i]);
+      }
+  }
+  //GET Data from server
+  onClick(){
+    this.apiServ.getData().subscribe(result=>{
+      this.handler(result)
+    })
+  }
+  //Select one guest
   onSelect(data:any){
-     console.log(data)
+    console.log(data);
+    
   }
 }

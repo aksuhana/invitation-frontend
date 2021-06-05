@@ -2,17 +2,17 @@
 
 <div class="input-group">
     <div class="form-outline">
-      <input list="form1s"  type="search" placeholder="Search" id="form1" class="form-control" [(ngModel)]="searchText" />
+      <input list="form1s" type="search" placeholder="Search" id="form1" class="form-control" [(ngModel)]="searchText" (click)="onClick()"/>
     </div>
 </div>
-  <div class="card col-md-2" style="margin-left: 20px; margin-top: 0px;" id="scroll" [hidden]="!(searchText.length > 0)" >
-		<table class="table">
-			<tbody>
-				<tr *ngFor="let guest of guests | appFilter:searchText;">
-          <td style="cursor: pointer;" (click)="onSelect(guest)">{{guest.name}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="card col-md-2" style="margin-left: 20px; margin-top: 0px;" id="scroll" [hidden]="!(searchText.length > 0)" >
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let guest of guests | appFilter:searchText;">
+        <td style="cursor: pointer;" (click)="onSelect(guest)">{{guest.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <app-new-guest></app-new-guest>
