@@ -16,7 +16,7 @@ export class UserDataComponent implements OnInit,OnChanges{
 	searchText = '';
 	Users = [];
 	UpdateForm: FormGroup;
-	totalAmount=0;
+	totalAmount : number = 0;
 	editName = ''; 	editAmount : number;  editAddress = ''; editMobile : number; editGift = '';
 	editId = '';
 
