@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {  FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpAPIRequestService } from './HttpAPIRequest.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { UserUpdateService } from '../HeaderPart/c1/UserUpdate.service'
+import { Subscription } from 'rxjs';
+
 
 @Component({
 	selector: 'app-user-data',
@@ -11,16 +14,18 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class UserDataComponent implements OnInit{
 	@ViewChild('scrollContent') scrollContent: any;
+  interval : any;
 	scrollPosition = 0;
 	modalReference : any;
 	searchText = '';
 	Users = [];
 	UpdateForm: FormGroup;
 	totalAmount : number = 0;
-  amountCalculate : number = 0;
+	amountCalculate : number = 0;
 	editName = ''; 	editAmount : number;  editAddress = ''; editMobile : number; editGift = '';
 	editId = '';
-
+	message : string;
+	subscription: Subscription;
 	datatoUpdate = {
 		name: '',
 		amount: 0,
@@ -28,9 +33,14 @@ export class UserDataComponent implements OnInit{
 		mobile: 9999999999,
 		gift: ''
 	};
-	constructor(private request: HttpAPIRequestService, private http: HttpClient, private modalService: NgbModal) { }
+	constructor(
+		private request: HttpAPIRequestService,
+		private http: HttpClient,
+		private modalService: NgbModal,
+		private UserUpdateService: UserUpdateService
+    ) { }
 
-	resultHandler(resultData : any, checkDelete: any){
+	resultHandler(resultData : any, checkDeleteUpdate: any){
 		let n = Object.keys(resultData).length;
 		this.Users = [];
 		for(let i=0; i<n; i++)
@@ -38,23 +48,38 @@ export class UserDataComponent implements OnInit{
 			if(resultData[i].amount)
 			{
 				this.Users.push(resultData[i]);
-        if(!checkDelete){
-          this.totalAmount = this.totalAmount + resultData[i].amount;
+        if(!checkDeleteUpdate){
+			this.totalAmount = this.totalAmount + resultData[i].amount;
         }
 			}
 		}
-		setInterval(()=>{
-			this.scrollContent.nativeElement.scrollTop += this.scrollContent.nativeElement.scrollHeight/this.Users.length;
-			if(this.scrollContent.nativeElement.scrollTop == this.scrollPosition){
-				this.scrollContent.nativeElement.scrollTop = 0;
-			}
-			else{
-				this.scrollPosition = this.scrollContent.nativeElement.scrollTop;
-			}
-		}, 2000)
+		if(!checkDeleteUpdate)
+		{
+			setInterval(()=>{
+        console.log(this.Users)
+				this.scrollContent.nativeElement.scrollTop += this.scrollContent.nativeElement.scrollHeight/this.Users.length;
+				if(this.scrollContent.nativeElement.scrollTop == this.scrollPosition){
+					this.scrollContent.nativeElement.scrollTop = 0;
+				}
+				else{
+					this.scrollPosition = this.scrollContent.nativeElement.scrollTop;
+				}
+				this.subscription = this.UserUpdateService.currentMessage.subscribe(message => this.message = message)
+        console.log(this.message)
+        if(this.message == 'yes'){
+        console.log("called again")
+					this.request.datatoGet().subscribe(resultData => {
+						this.resultHandler(resultData, false);
+					})
+				}
+				this.UserUpdateService.changeMessage('no')
+				this.subscription.unsubscribe();
+			}, 2000)
+		}
 	}
 
 	ngOnInit(): void {
+    console.log("ngoninit")
 		this.request.datatoGet().subscribe(resultData => {
 			this.resultHandler(resultData, false);
 		})
@@ -101,9 +126,4 @@ export class UserDataComponent implements OnInit{
 		this.totalAmount = this.totalAmount - Number(this.amountCalculate) + Number(this.datatoUpdate.amount);
 		this.modalReference.close();
 	}
-
-  // onUpdateUserList(reloadUser: {updateUser: string}){
-  //   console.log(reloadUser)
-  // }
-
 }

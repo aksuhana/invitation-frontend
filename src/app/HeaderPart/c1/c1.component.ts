@@ -1,16 +1,18 @@
 import { RequestHandlerService } from './../../request-handler.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute,Params } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { UserUpdateService } from '../c1/UserUpdate.service'
 @Component({
   selector: 'app-c1',
   templateUrl: './c1.component.html',
   styleUrls: ['./c1.component.css']
 })
 export class C1Component implements OnInit {
-  // @Output() updateUserList = new EventEmitter <{updateUser:string}>();
+  message:string;
+  subscription: Subscription;
   paid:boolean = false;
   id="";
   invitationForm: FormGroup;
@@ -30,10 +32,11 @@ export class C1Component implements OnInit {
 
   constructor(private requestHandler: RequestHandlerService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private UserUpdateService: UserUpdateService) { }
 
   ngOnInit(): void {
-
+    this.subscription = this.UserUpdateService.currentMessage.subscribe(message => this.message = message)
     this.invitationForm = new FormGroup({
       'userData': new FormGroup({
         'amount': new FormControl({ disabled: this.customMode }, Validators.required
@@ -91,6 +94,6 @@ export class C1Component implements OnInit {
       console.log("Transaction Sucess!!!");
     })
     this.router.navigate([''],{})
-    // this.updateUserList.emit({updateUser: "yes"});
+    this.UserUpdateService.changeMessage('yes')
   }
 }
