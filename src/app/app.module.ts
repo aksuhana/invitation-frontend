@@ -11,6 +11,7 @@ import { NewGuestComponent } from './new-guest/new-guest.component';
 import { FilterPipe } from "./search-bar/filter.pipe";
 import { C1Component } from './HeaderPart/c1/c1.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NewGuestComponent,
     C1Component,
     UserDataComponent,
-    FilterPipe
+    FilterPipe,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

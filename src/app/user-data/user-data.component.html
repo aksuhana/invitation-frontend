@@ -1,19 +1,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="container">
-    <div class="row-md-5" id="flex">
+    <div class="row-md-4" id="flex">
 		<p style="margin-top: 10px; margin-left: 30px;">Name</p>
 		<p style="margin-top: 10px; margin-left: 80px;">Amount</p>
 		<p style="margin-top: 10px; margin-left: 60px;">Action</p>
     </div>
 	<div class="input-group">
 		<div class="form-outline">
-			<input style="width: 360px;" [(ngModel)]="searchText" type="search" placeholder="Search Name" id="form1" class="form-control" />
+			<input style="width: 400px;" [(ngModel)]="searchText" type="search" placeholder="Search Name" id="form1" class="form-control" />
 		</div>
-		<button type="button" class="btn btn-info">
+		<!-- <button type="button" class="btn btn-info">
 			<i class="fa fa-search"></i>
-		</button>
+		</button> -->
 	</div>
-	<div class="card row-md-5" id="scroll" #scrollContent>
+	<div class="card row-md-4" id="scroll" #scrollContent>
 		<table class="table">
 			<tbody>
 				<tr *ngFor="let user of Users | appFilter:searchText;">

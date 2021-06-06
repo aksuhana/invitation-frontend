@@ -1,6 +1,6 @@
 .radio-toolbar {
     margin: 10px;
-    width: 700px;
+    width: 400px;
     display: flex;
     border : 1px solid blue;
     flex-wrap: wrap;
@@ -14,8 +14,8 @@
   
   .radio-toolbar label {
       display: inline-block;
-      background-color: #ddd;
-      padding: 10px 20px;
+      background-color: rgb(21, 114, 18);
+      padding: 5px 10px;
       font-family: sans-serif, Arial;
       font-size: 16px;
       border: 2px solid #444;
@@ -23,13 +23,13 @@
   }
   
   .radio-toolbar label:hover {
-    background-color: rgb(50, 243, 50);
+    background-color: rgb(28, 126, 28);
     cursor: pointer;
     color:whitesmoke;
   }
   
   .radio-toolbar input[type="radio"]:focus + label {
-      border: 2px dashed #444;
+      border: 2px dashed rgb(77, 75, 75);
       color:black;
   }
   
