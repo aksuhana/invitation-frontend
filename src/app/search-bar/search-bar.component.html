@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<div class="input-group">
+<!-- <div *ngIf="mainToggle"> -->
+  <div class="input-group">
     <div class="form-outline">
       <input list="form1s" type="search" placeholder="Search" id="form1" class="form-control" [(ngModel)]="searchText" (click)="onClick()"/>
     </div>
 </div>
-<div class="card col-md-2" style="margin-left: 20px; margin-top: 0px;" id="scroll" [hidden]="!(searchText.length > 0)" >
+<div class="card col-md-3" style="margin-left: 20px; margin-top: 0px;" id="scroll" [hidden]="!(searchText.length > 0)" *ngIf="!itemSelected">
   <table class="table">
     <tbody>
       <tr *ngFor="let guest of guests | appFilter:searchText;">
@@ -16,3 +16,4 @@
 </div>
 
 <app-new-guest></app-new-guest>
+<!-- </div> -->

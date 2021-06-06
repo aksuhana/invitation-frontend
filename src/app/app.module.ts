@@ -1,3 +1,5 @@
+import { UserDataComponent } from './user-data/user-data.component';
+import { MatIconModule } from '@angular/material/icon';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,11 +9,17 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NewGuestComponent } from './new-guest/new-guest.component';
 import { FilterPipe } from "./search-bar/filter.pipe";
+import { C1Component } from './HeaderPart/c1/c1.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     SearchBarComponent,
     NewGuestComponent,
+    C1Component,
+    UserDataComponent,
     FilterPipe
   ],
   imports: [
@@ -19,7 +27,9 @@ import { FilterPipe } from "./search-bar/filter.pipe";
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

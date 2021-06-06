@@ -1,0 +1,113 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container">
+    <div class="row-md-5" id="flex">
+		<p style="margin-top: 10px; margin-left: 30px;">Name</p>
+		<p style="margin-top: 10px; margin-left: 80px;">Amount</p>
+		<p style="margin-top: 10px; margin-left: 60px;">Action</p>
+    </div>
+	<div class="input-group">
+		<div class="form-outline">
+			<input style="width: 360px;" [(ngModel)]="searchText" type="search" placeholder="Search Name" id="form1" class="form-control" />
+		</div>
+		<button type="button" class="btn btn-info">
+			<i class="fa fa-search"></i>
+		</button>
+	</div>
+	<div class="card row-md-5" id="scroll" #scrollContent>
+		<table class="table">
+			<tbody>
+				<tr *ngFor="let user of Users | appFilter:searchText;">
+					<!-- <td scope="row">{{i+1}}</th> -->
+					<td>{{user.name}}</td>
+					<td>{{user.amount}}</td>
+					<td>
+						<div>
+							<button type="button" (click)="onDelete(user._id)" class="btn btn-outline-danger">
+								<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-trash" viewBox="0 0 15 15">
+									<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+									<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+								</svg>
+							</button>
+							<button style="margin-left: 10px;" type="button" class="btn btn-primary"
+								(click)="onEdit(user._id,
+												user.name,
+												user.amount,
+												user.address,
+												user.mobile,
+												user.gift,
+												mymodal)">
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil" viewBox="0 0 18 18">
+									<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"></path>
+								</svg>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<ng-template #mymodal let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">Edit</h4>
+			<button type="button" class="close btn btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
+				<span aria-hidden="true">X</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<form [formGroup]="UpdateForm" (ngSubmit)="onUpdate()">
+				<div formGroupName="userUpdateData">
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>Name</label>
+								<input type="text"
+									formControlName="updatedName"
+									[(ngModel)] = "editName"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>Amount</label>
+								<input type="text"
+									formControlName="updatedAmount"
+									[(ngModel)] = "editAmount"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>Address</label>
+								<input type="text"
+									formControlName="updatedAddress"
+									[(ngModel)] = "editAddress"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>Mobile No.</label>
+								<input type="text"
+									formControlName="updatedMobile"
+									[(ngModel)] = "editMobile"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>Gift</label>
+								<input type="text"
+									formControlName="updatedGift"
+									[(ngModel)] = "editGift"
+									class="form-control" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<button type="submit" style="margin-top: 20px; margin-left: 200px;" class="btn btn-success">Save</button>
+				</div>
+			</form>
+		</div>
+	</ng-template>
+</div>
