@@ -16,7 +16,7 @@ export class UserDataComponent implements OnInit{
 	searchText = '';
 	Users = [];
 	UpdateForm: FormGroup;
-
+	totalAmount=0;
 	editName = ''; 	editAmount : number;  editAddress = ''; editMobile : number; editGift = '';
 	editId = '';
 
@@ -38,13 +38,14 @@ export class UserDataComponent implements OnInit{
 			if(resultData[i].amount!=0)
 			{
 				this.Users.push(resultData[i]);
+				this.totalAmount = this.totalAmount + resultData[i].amount;
 			}
 		}
 		setInterval(()=>{
-			console.log("starts scrolling")
+			// console.log("starts scrolling")
 			this.scrollContent.nativeElement.scrollTop += this.scrollContent.nativeElement.scrollHeight/this.Users.length;
 			if(this.scrollContent.nativeElement.scrollTop == this.scrollPosition){
-				console.log("scroll at end")
+				// console.log("scroll at end")
 				this.scrollContent.nativeElement.scrollTop = 0;
 			}
 			else{
@@ -67,13 +68,17 @@ export class UserDataComponent implements OnInit{
 			'updatedGift': new FormControl(null, []),
 			}),
 		});
+
 	}
 
 
-	onDelete(id: string){
+	onDelete(id: string, name:string){
 		this.request.datatoDelete(id).subscribe(resultData => {
-		this.resultHandler(resultData)
+			this.resultHandler(resultData)
 		})
+		const user =  this.Users.find(x => x.name == name);
+		this.totalAmount = this.totalAmount - user.amount;
+		
 	}
 
 	onEdit(id:string, name:string, amount:number, address:string, mobile:number, gift:string, content:any){
