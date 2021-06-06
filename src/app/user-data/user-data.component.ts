@@ -1,3 +1,4 @@
+import { InfoHandlerService } from './../info-handler.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {  FormControl, FormGroup, Validators } from '@angular/forms';
@@ -10,6 +11,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 	styleUrls: ['./user-data.component.css']
 })
 export class UserDataComponent implements OnInit{
+
 	@ViewChild('scrollContent') scrollContent: any;
 	scrollPosition = 0;
 	modalReference : any;
@@ -27,17 +29,19 @@ export class UserDataComponent implements OnInit{
 		mobile: 9999999999,
 		gift: ''
 	};
-	constructor(private request: HttpAPIRequestService, private http: HttpClient, private modalService: NgbModal) { }
+	constructor(private request: HttpAPIRequestService, private http: HttpClient, private modalService: NgbModal,
+		private infoHandler:InfoHandlerService) { }
 
-	resultHandler(resultData : any){
+	resultHandler(resultData : any,isDeleted:boolean){
 		console.log("result")
 		let n = Object.keys(resultData).length;
 		this.Users = [];
 		for(let i=0; i<n; i++)
 		{
-			if(resultData[i].amount!=0)
+			if(resultData[i].amount)
 			{
 				this.Users.push(resultData[i]);
+				if(!isDeleted)
 				this.totalAmount = this.totalAmount + resultData[i].amount;
 			}
 		}
@@ -57,7 +61,7 @@ export class UserDataComponent implements OnInit{
 	ngOnInit(): void {
 		console.log("ngoninit")
 		this.request.datatoGet().subscribe(resultData => {
-			this.resultHandler(resultData);
+			this.resultHandler(resultData,false);
 		})
 		this.UpdateForm = new FormGroup({
 			'userUpdateData': new FormGroup({
@@ -74,7 +78,7 @@ export class UserDataComponent implements OnInit{
 
 	onDelete(id: string, name:string){
 		this.request.datatoDelete(id).subscribe(resultData => {
-			this.resultHandler(resultData)
+			this.resultHandler(resultData,true)
 		})
 		const user =  this.Users.find(x => x.name == name);
 		this.totalAmount = this.totalAmount - user.amount;
@@ -98,7 +102,7 @@ export class UserDataComponent implements OnInit{
 		this.datatoUpdate.mobile = this.UpdateForm.value.userUpdateData.updatedMobile,
 		this.datatoUpdate.gift = this.UpdateForm.value.userUpdateData.updatedGift;
 		this.request.datatoUpdate(this.editId, this.datatoUpdate).subscribe(resultData =>{
-			this.resultHandler(resultData);
+			this.resultHandler(resultData,true);
 		})
 		this.modalReference.close();
 	}

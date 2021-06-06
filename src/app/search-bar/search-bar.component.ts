@@ -33,9 +33,9 @@ export class SearchBarComponent implements OnInit {
   //GET Data from server
   onClick(){
     this.itemSelected = false;
-    // this.apiServ.getData().subscribe(result=>{
-    //   this.handler(result)
-    // })
+    this.apiServ.getData().subscribe(result=>{
+      this.handler(result)
+    })
   }
   //Select one guest
   onSelect(data:any){
