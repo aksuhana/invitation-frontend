@@ -48,7 +48,7 @@ export class C1Component implements OnInit {
    console.log(this.id);
    this.requestHandler.getUserWithId(this.id).subscribe(result=>{
     this.userDetail = result;
-    if(Number(this.userDetail['amount'])!==0)
+    if(Number(this.userDetail['amount']))
     {
       this.paid=true;
     }
