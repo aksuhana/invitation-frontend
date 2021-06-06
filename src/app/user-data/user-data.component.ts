@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnChanges, OnInit, ViewChild } from '@angular/core';
 import {  FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpAPIRequestService } from './HttpAPIRequest.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -9,7 +9,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 	templateUrl: './user-data.component.html',
 	styleUrls: ['./user-data.component.css']
 })
-export class UserDataComponent implements OnInit{
+export class UserDataComponent implements OnInit,OnChanges{
 	@ViewChild('scrollContent') scrollContent: any;
 	scrollPosition = 0;
 	modalReference : any;
@@ -71,6 +71,12 @@ export class UserDataComponent implements OnInit{
 
 	}
 
+	ngOnChanges(){
+		this.request.datatoGet().subscribe(resultData => {
+			this.resultHandler(resultData);
+		})
+		console.log("change")
+	}
 
 	onDelete(id: string, name:string){
 		this.request.datatoDelete(id).subscribe(resultData => {

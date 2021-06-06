@@ -7,17 +7,66 @@
         (click)="onClick()" />
     </div>
   </div>
-  <div class="card col-md-2" style="margin-left: 20px; margin-top: 0px;" id="scroll" [hidden]="!(searchText.length > 0)" *ngIf="!itemSelected">
+  <div class="card " style="margin-left: 20px; margin-top: 0px;" id="scroll" [hidden]="!(searchText.length > 0)" *ngIf="!itemSelected">
     <table class="table">
       <tbody>
         <tr *ngFor="let guest of guests | appFilter:searchText;">
-          <td style="cursor: pointer;" (click)="onSelect(guest)">{{guest.name}}</td>
+          <td id="guest_id" style="cursor: pointer; background-color: rgb(255, 135, 113); display: inline;" (click)="onclick(addModal)" *ngIf="guest.name == 'Match Not Found'">{{guest.name}}</td>
+          <td id="guest_id" style="cursor: pointer;" (click)="onSelect(guest)" *ngIf="guest.name != 'Match Not Found'">{{guest.name}}</td>
+          <td>
+            <div>
+              <div *ngIf="guest.name != 'Match Not Found'" >
+                <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="guest.isPaid">check_circle</mat-icon>
+                <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="!guest.isPaid">dangerous</mat-icon>
+              </div>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <app-new-guest></app-new-guest>
 </div>
+<ng-template #addModal let-modal>   
+  <div class="modal-content">      
+    <div class="modal-header">
+      <h4 class="modal-title align-center">Add New Guest</h4>
+    </div>
+    <div class="modal-body">        
+      <form [formGroup]="addForm" (ngSubmit)="onAddSubmit()">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text"  formControlName="name" class="form-control" />
+              <span
+                *ngIf="!(addForm.get('name').valid && addForm.get('name').touched)"
+                class="help-block">  
+              </span>
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <input type="text"  formControlName="address" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>Mobile no.</label>
+              <input type="number"  formControlName="mobile" class="form-control" />
+              <span
+                *ngIf="!(addForm.get('mobile').valid && addForm.get('mobile').touched)"
+                class="help-block">  
+              </span>
+            </div>
+          </div>  
+        </div>
+        <button type="submit" id="addNew" class="btn btn-warning" [disabled]="!(addForm.get('name').valid && addForm.get('mobile').valid )">Add</button>
+      </form> 
+    </div>      
+    <div class="modal-footer">
+      <button type="button" class="btn btn-dark" data-dismiss="modal" (click)="onclose()">Close</button>
+    </div>
+  </div>
+</ng-template>
+  
+
 
 
 
