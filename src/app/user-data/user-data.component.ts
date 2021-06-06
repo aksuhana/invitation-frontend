@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import {  FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpAPIRequestService } from './HttpAPIRequest.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -9,7 +9,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 	templateUrl: './user-data.component.html',
 	styleUrls: ['./user-data.component.css']
 })
-export class UserDataComponent implements OnInit,OnChanges{
+export class UserDataComponent implements OnInit{
 	@ViewChild('scrollContent') scrollContent: any;
 	scrollPosition = 0;
 	modalReference : any;
@@ -17,6 +17,7 @@ export class UserDataComponent implements OnInit,OnChanges{
 	Users = [];
 	UpdateForm: FormGroup;
 	totalAmount : number = 0;
+  amountCalculate : number = 0;
 	editName = ''; 	editAmount : number;  editAddress = ''; editMobile : number; editGift = '';
 	editId = '';
 
@@ -29,23 +30,22 @@ export class UserDataComponent implements OnInit,OnChanges{
 	};
 	constructor(private request: HttpAPIRequestService, private http: HttpClient, private modalService: NgbModal) { }
 
-	resultHandler(resultData : any){
-		console.log("result")
+	resultHandler(resultData : any, checkDelete: any){
 		let n = Object.keys(resultData).length;
 		this.Users = [];
 		for(let i=0; i<n; i++)
 		{
-			if(resultData[i].amount!=0)
+			if(resultData[i].amount)
 			{
 				this.Users.push(resultData[i]);
-				this.totalAmount = this.totalAmount + resultData[i].amount;
+        if(!checkDelete){
+          this.totalAmount = this.totalAmount + resultData[i].amount;
+        }
 			}
 		}
 		setInterval(()=>{
-			// console.log("starts scrolling")
 			this.scrollContent.nativeElement.scrollTop += this.scrollContent.nativeElement.scrollHeight/this.Users.length;
 			if(this.scrollContent.nativeElement.scrollTop == this.scrollPosition){
-				// console.log("scroll at end")
 				this.scrollContent.nativeElement.scrollTop = 0;
 			}
 			else{
@@ -55,9 +55,8 @@ export class UserDataComponent implements OnInit,OnChanges{
 	}
 
 	ngOnInit(): void {
-		console.log("ngoninit")
 		this.request.datatoGet().subscribe(resultData => {
-			this.resultHandler(resultData);
+			this.resultHandler(resultData, false);
 		})
 		this.UpdateForm = new FormGroup({
 			'userUpdateData': new FormGroup({
@@ -70,16 +69,9 @@ export class UserDataComponent implements OnInit,OnChanges{
 		});
 	}
 
-	ngOnChanges(){
-		this.request.datatoGet().subscribe(resultData => {
-			this.resultHandler(resultData);
-		})
-		console.log("change	")
-	}
-
 	onDelete(id: string, name:string){
 		this.request.datatoDelete(id).subscribe(resultData => {
-			this.resultHandler(resultData)
+			this.resultHandler(resultData, true)
 		})
 		const user =  this.Users.find(x => x.name == name);
 		this.totalAmount = this.totalAmount - user.amount;
@@ -93,6 +85,7 @@ export class UserDataComponent implements OnInit,OnChanges{
 		this.editMobile = mobile;
 		this.editGift = gift;
 		this.editId = id;
+		this.amountCalculate = this.editAmount;
 		this.modalReference = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'})
 		}
 
@@ -103,9 +96,14 @@ export class UserDataComponent implements OnInit,OnChanges{
 		this.datatoUpdate.mobile = this.UpdateForm.value.userUpdateData.updatedMobile,
 		this.datatoUpdate.gift = this.UpdateForm.value.userUpdateData.updatedGift;
 		this.request.datatoUpdate(this.editId, this.datatoUpdate).subscribe(resultData =>{
-			this.resultHandler(resultData);
+			this.resultHandler(resultData, true);
 		})
+		this.totalAmount = this.totalAmount - Number(this.amountCalculate) + Number(this.datatoUpdate.amount);
 		this.modalReference.close();
 	}
+
+  // onUpdateUserList(reloadUser: {updateUser: string}){
+  //   console.log(reloadUser)
+  // }
 
 }

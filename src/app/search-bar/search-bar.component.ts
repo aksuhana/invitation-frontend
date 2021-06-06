@@ -37,7 +37,7 @@ export class SearchBarComponent implements OnInit {
       'address': new FormControl(null),
       'mobile': new FormControl(null, [Validators.maxLength(10), Validators.minLength(10)])
     })
-    
+
   }
   //add guests data from server to component
   handler(result:any){
@@ -84,7 +84,7 @@ export class SearchBarComponent implements OnInit {
     this.apiServ.postData(this.guestData).subscribe(result=>{
       this.handler(result)
     })
-    this.addForm.reset() 
+    this.addForm.reset()
   }
   //Close Modal
   onclose(){

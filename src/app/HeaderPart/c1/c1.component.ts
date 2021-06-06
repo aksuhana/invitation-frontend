@@ -1,5 +1,5 @@
 import { RequestHandlerService } from './../../request-handler.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute,Params } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./c1.component.css']
 })
 export class C1Component implements OnInit {
+  // @Output() updateUserList = new EventEmitter <{updateUser:string}>();
   paid:boolean = false;
   id="";
   invitationForm: FormGroup;
@@ -21,7 +22,7 @@ export class C1Component implements OnInit {
     }
   }
   userDetail: {};
-  
+
   customMode: boolean = false;
   priceTags = [100, 200, 300, 400, 500, 600, 1000, 5000];
 
@@ -42,17 +43,17 @@ export class C1Component implements OnInit {
         'gift': new FormControl(null)
       })
     })
-   this.route.params.subscribe((params:Params)=>{
-     this.id = params['id'];
-   })
-   console.log(this.id);
-   this.requestHandler.getUserWithId(this.id).subscribe(result=>{
-    this.userDetail = result;
-    if(Number(this.userDetail['amount']))
-    {
-      this.paid=true;
-    }
-   })
+    this.route.params.subscribe((params:Params)=>{
+      this.id = params['id'];
+    })
+    console.log(this.id);
+    this.requestHandler.getUserWithId(this.id).subscribe(result=>{
+      this.userDetail = result;
+      if(Number(this.userDetail['amount']))
+      {
+        this.paid=true;
+      }
+    })
   }
   onClick() {
     this.customMode = !this.customMode;
@@ -60,7 +61,7 @@ export class C1Component implements OnInit {
   }
 
 
-  
+
 
 
 
@@ -89,7 +90,7 @@ export class C1Component implements OnInit {
     this.requestHandler.patchUsersWithAmount(this.data).subscribe(result => {
       console.log("Transaction Sucess!!!");
     })
-
     this.router.navigate([''],{})
+    // this.updateUserList.emit({updateUser: "yes"});
   }
 }
