@@ -67,8 +67,8 @@ export class UserDataComponent implements OnInit{
 			'userUpdateData': new FormGroup({
 			'updatedName': new FormControl(null, [Validators.required]),
 			'updatedAmount': new FormControl(null, [Validators.required]),
-			'updatedAddress': new FormControl(null, [Validators.required, ]),
-			'updatedMobile': new FormControl(null, [Validators.required]),
+			'updatedAddress': new FormControl(null, []),
+			'updatedMobile': new FormControl(null, [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
 			'updatedGift': new FormControl(null, []),
 			}),
 		});
@@ -82,7 +82,7 @@ export class UserDataComponent implements OnInit{
 		})
 		const user =  this.Users.find(x => x.name == name);
 		this.totalAmount = this.totalAmount - user.amount;
-		
+
 	}
 
 	onEdit(id:string, name:string, amount:number, address:string, mobile:number, gift:string, content:any){

@@ -108,7 +108,7 @@
 					</div>
 				</div>
 				<div>
-					<button type="submit" style="margin-top: 20px; margin-left: 200px;" class="btn btn-success">Save</button>
+					<button type="submit" style="margin-top: 20px; margin-left: 200px;" class="btn btn-success" [disabled]="!(UpdateForm.get('userUpdateData').valid)">Save</button>
 				</div>
 			</form>
 		</div>
