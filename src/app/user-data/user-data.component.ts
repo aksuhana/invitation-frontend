@@ -68,14 +68,13 @@ export class UserDataComponent implements OnInit,OnChanges{
 			'updatedGift': new FormControl(null, []),
 			}),
 		});
-
 	}
 
 	ngOnChanges(){
 		this.request.datatoGet().subscribe(resultData => {
 			this.resultHandler(resultData);
 		})
-		console.log("change")
+		console.log("change	")
 	}
 
 	onDelete(id: string, name:string){
