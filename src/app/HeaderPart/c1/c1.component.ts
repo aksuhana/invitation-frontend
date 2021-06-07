@@ -1,6 +1,6 @@
 import { InfoHandlerService } from './../../info-handler.service';
 import { RequestHandlerService } from './../../request-handler.service';
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, DoCheck, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute,Params } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -11,9 +11,13 @@ import { UserUpdateService } from '../c1/UserUpdate.service'
   templateUrl: './c1.component.html',
   styleUrls: ['./c1.component.css']
 })
-export class C1Component implements OnInit,OnChanges,OnDestroy {
+export class C1Component implements OnInit,OnChanges {
+  
   message:string;
+  searchMessage:string;
   subscription: Subscription;
+  searchSub:Subscription
+  usersub: Subscription;
   paid:boolean = false;
   id="";
   invitationForm: FormGroup;
@@ -38,7 +42,12 @@ export class C1Component implements OnInit,OnChanges,OnDestroy {
     private infoHandler: InfoHandlerService) { }
 
   ngOnInit(): void {
+    this.usersub=this.infoHandler.currentMessage.subscribe(
+      searchMessage=>this.searchMessage=searchMessage
+    )
+
     this.subscription = this.UserUpdateService.currentMessage.subscribe(message => this.message = message)
+
     this.invitationForm = new FormGroup({
       'userData': new FormGroup({
         'amount': new FormControl({ disabled: this.customMode }, Validators.required
@@ -60,6 +69,8 @@ export class C1Component implements OnInit,OnChanges,OnDestroy {
       }
     })
   }
+
+
   onClick() {
     this.customMode = !this.customMode;
     console.log('button clicked')
@@ -130,7 +141,7 @@ export class C1Component implements OnInit,OnChanges,OnDestroy {
 
 
   onCancel(){
-    this.infoHandler.searchText = false;
+    this.infoHandler.userSelected('no');
     this.router.navigate(['../']);
   }
 

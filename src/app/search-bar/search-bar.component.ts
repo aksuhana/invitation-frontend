@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { InfoHandlerService } from './../info-handler.service';
 import { Component, ElementRef, OnChanges, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { HttpApiService } from "../httpApi.service";
@@ -12,6 +13,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class SearchBarComponent implements OnInit {
   @ViewChild('s') search: ElementRef;
+  searchSub:Subscription;
+  searchMessage: string;
   modalReference:any;
   addForm: FormGroup;
   submitted:boolean = false;
@@ -58,13 +61,23 @@ export class SearchBarComponent implements OnInit {
         }
       }
   }
+ 
   ngDoCheck(){
-    if(this.infoHandler.searchText===false)
-    {
-      console.log("true happened")
-      this.search.nativeElement.disabled=false;
-    }
-    
+    this.searchSub = this.infoHandler.currentMessage.subscribe(
+      searchMessage=>this.searchMessage = searchMessage
+    )
+    console.log("insidedoCheck "+ this.searchMessage);
+      if(this.searchMessage=='yes')
+      {
+        this.search.nativeElement.disabled=true;
+      }else if(this.search)
+      {
+        if(this.searchMessage=='no')
+        {
+          this.search.nativeElement.disabled=false;
+        }
+      }
+      
   }
   //GET Data from server
   onClick(){
@@ -76,6 +89,7 @@ export class SearchBarComponent implements OnInit {
   //Select one guest
   onSelect(data:any){
     this.mainToggle = false;
+    this.infoHandler.userSelected('yes');
     //this is to add disable text field feature in form after the particular user is selected
     this.search.nativeElement.disabled=true;
     this.itemSelected = true;
