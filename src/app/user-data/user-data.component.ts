@@ -56,7 +56,6 @@ export class UserDataComponent implements OnInit{
 		if(!checkDeleteUpdate)
 		{
 			setInterval(()=>{
-        console.log(this.Users)
 				this.scrollContent.nativeElement.scrollTop += this.scrollContent.nativeElement.scrollHeight/this.Users.length;
 				if(this.scrollContent.nativeElement.scrollTop == this.scrollPosition){
 					this.scrollContent.nativeElement.scrollTop = 0;
@@ -65,11 +64,10 @@ export class UserDataComponent implements OnInit{
 					this.scrollPosition = this.scrollContent.nativeElement.scrollTop;
 				}
 				this.subscription = this.UserUpdateService.currentMessage.subscribe(message => this.message = message)
-        console.log(this.message)
         if(this.message == 'yes'){
         console.log("called again")
 					this.request.datatoGet().subscribe(resultData => {
-						this.resultHandler(resultData, false);
+						this.resultHandler(resultData, true);
 					})
 				}
 				this.UserUpdateService.changeMessage('no')

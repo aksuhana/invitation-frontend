@@ -61,8 +61,10 @@ export class SearchBarComponent implements OnInit {
   ngDoCheck(){
     if(this.infoHandler.searchText===false)
     {
+      console.log("true happened")
       this.search.nativeElement.disabled=false;
     }
+    
   }
   //GET Data from server
   onClick(){
