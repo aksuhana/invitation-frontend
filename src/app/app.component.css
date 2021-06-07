@@ -4,3 +4,13 @@ h1 {
   font-weight: bold;
   font-size: xx-large;
 }
+.full {
+  background-image: url("https://media.istockphoto.com/photos/flower-background-for-holidays-picture-id1206077453?b=1&k=6&m=1206077453&s=170667a&w=0&h=ZEZWEBK-daZ0o45CJP5lHaEk92rHl3TZ0olu-26-AG0=");
+  background-color: #cccccc;
+  height: 1000px;
+  margin-top: 0%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}

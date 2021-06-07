@@ -1,14 +1,16 @@
-<app-navbar></app-navbar>
-<div class="container">
-    <div class="row" style="margin-top: 80px;">
-      <div class=" col-md-7"  >
-          <h1>Welcome to Wedding</h1>
-        <app-search-bar></app-search-bar>
-        <router-outlet></router-outlet>
+<div class="full">
+  <app-navbar></app-navbar>
+  <div class="container">
+      <div class="row" >
+        <div class=" col-md-7" style="margin-top: 200px;">
+            <h1>Welcome to Wedding</h1>
+          <app-search-bar></app-search-bar>
+          <router-outlet></router-outlet>
+      </div>
+        <div class="col-md-5" style="margin-top: 110px;">
+          <app-user-data></app-user-data>
+      </div>
+      </div>
     </div>
-      <div class="col-md-5">
-        <app-user-data></app-user-data>
-    </div>
-    </div>
-  </div>
+</div>
 
