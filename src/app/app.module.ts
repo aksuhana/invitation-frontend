@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NewGuestComponent } from './new-guest/new-guest.component';
 import { FilterPipe } from "./search-bar/filter.pipe";
 import { UserFilterPipe } from "./user-data/filter.pipe";
 import { C1Component } from './HeaderPart/c1/c1.component';
@@ -19,7 +18,6 @@ import { NavbarComponent } from './navbar/navbar.component';
   declarations: [
     AppComponent,
     SearchBarComponent,
-    NewGuestComponent,
     C1Component,
     UserDataComponent,
     FilterPipe,

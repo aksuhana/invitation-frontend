@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class HttpAPIRequestService {
-  private Url = "http://localhost:3000"
+  private Url = environment.URL;
   constructor(private http: HttpClient) {}
 
   datatoGet() : Observable<any>{

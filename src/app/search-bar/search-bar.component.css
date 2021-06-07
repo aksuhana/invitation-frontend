@@ -9,10 +9,19 @@
   width: 500px;
 }
 #scroll {
+  height: 300px;
   width: 500px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align:justify;
+  border:none;
 }
 #guest_id:hover {
   background-color: rgb(192, 220, 247);
+  
+}
+#bor{
+  border: 1px solid rgb(224, 223, 223);
 }
 #addNew {
   margin: 20px;

@@ -73,7 +73,6 @@ export class C1Component implements OnInit,OnChanges {
 
   onClick() {
     this.customMode = !this.customMode;
-    console.log('button clicked')
   }
 
 
@@ -102,12 +101,13 @@ export class C1Component implements OnInit,OnChanges {
       this.data.item.amount = this.invitationForm.value.userData.customAmount;
     }
     this.data.item.gift = this.invitationForm.value.userData.gift;
-    console.log(this.data);
     this.requestHandler.patchUsersWithAmount(this.data).subscribe(result => {
+
       console.log("Transaction Sucess!!!");
     })
     this.router.navigate([''],{})
     this.UserUpdateService.changeMessage('yes')
+    this.infoHandler.userSelected('no');
   }
 
 
@@ -150,5 +150,6 @@ export class C1Component implements OnInit,OnChanges {
 
   ngOnDestroy(){
     this.subscription.unsubscribe();
+    this.usersub.unsubscribe();
   }
 }

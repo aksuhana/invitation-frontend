@@ -66,11 +66,11 @@ export class SearchBarComponent implements OnInit {
     this.searchSub = this.infoHandler.currentMessage.subscribe(
       searchMessage=>this.searchMessage = searchMessage
     )
-    console.log("insidedoCheck "+ this.searchMessage);
       if(this.searchMessage=='yes')
       {
         this.search.nativeElement.disabled=true;
-      }else if(this.search)
+      }
+      else if(this.search)
       {
         if(this.searchMessage=='no')
         {
@@ -102,11 +102,12 @@ export class SearchBarComponent implements OnInit {
   //Modal open
   onclick( modal:any){
     this.modalReference = this.modalService.open(modal, {ariaLabelledBy: 'modal-basic-title'})
+    this.searchText = "";
   }
   //Add Guest
   onAddSubmit(){
     this.submitted = true;
-    console.log(this.addForm);
+    
     this.guestData.name= this.addForm.value.name;
     this.guestData.address= this.addForm.value.address;
     this.guestData.mobile = this.addForm.value.mobile;
@@ -118,5 +119,8 @@ export class SearchBarComponent implements OnInit {
   //Close Modal
   onclose(){
     this.modalReference.close();
+  }
+  ngOnDestroy(){
+    this.searchSub.unsubscribe();
   }
 }
