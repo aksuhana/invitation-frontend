@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
 })
 export class UserDataComponent implements OnInit{
 	@ViewChild('scrollContent') scrollContent: any;
-  interval : any;
 	scrollPosition = 0;
 	modalReference : any;
 	searchText = '';
@@ -77,7 +76,6 @@ export class UserDataComponent implements OnInit{
 	}
 
 	ngOnInit(): void {
-    console.log("ngoninit")
 		this.request.datatoGet().subscribe(resultData => {
 			this.resultHandler(resultData, false);
 		})
