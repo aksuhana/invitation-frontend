@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { InfoHandlerService } from './../info-handler.service';
+import { Component, ElementRef, OnChanges, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { HttpApiService } from "../httpApi.service";
 import { Router } from '@angular/router';
-import {  FormControl, FormGroup, Validators } from '@angular/forms';
+import {  FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -10,6 +11,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent implements OnInit {
+  @ViewChild('s') search: ElementRef;
   modalReference:any;
   addForm: FormGroup;
   submitted:boolean = false;
@@ -19,16 +21,18 @@ export class SearchBarComponent implements OnInit {
     mobile:0,
     isPaid:false
   };
-
+  
   searchText='';
   guests = [];
   mainToggle:boolean =true;
   itemSelected:boolean = false;
   notFound:boolean=false;
   constructor(private apiServ: HttpApiService,private modalService: NgbModal,
-    private router: Router) { }
+    private router: Router,
+    private infoHandler: InfoHandlerService) { }
 
   ngOnInit(): void {
+    // console.log("on init called");
     this.apiServ.getData().subscribe(result=>{
       this.handler(result)
     })
@@ -39,6 +43,7 @@ export class SearchBarComponent implements OnInit {
     })
 
   }
+ 
   //add guests data from server to component
   handler(result:any){
     let x = Object.keys(result).length;
@@ -53,6 +58,12 @@ export class SearchBarComponent implements OnInit {
         }
       }
   }
+  ngDoCheck(){
+    if(this.infoHandler.searchText===false)
+    {
+      this.search.nativeElement.disabled=false;
+    }
+  }
   //GET Data from server
   onClick(){
     this.itemSelected = false;
@@ -63,6 +74,8 @@ export class SearchBarComponent implements OnInit {
   //Select one guest
   onSelect(data:any){
     this.mainToggle = false;
+    //this is to add disable text field feature in form after the particular user is selected
+    this.search.nativeElement.disabled=true;
     this.itemSelected = true;
     this.router.navigate(['/user',data._id],{})
     this.searchText = "";

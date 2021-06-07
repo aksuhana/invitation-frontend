@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class InfoHandlerService {
 
+  searchText:boolean = true;
   userAdded:boolean = false;
   userData = {
     name:"",

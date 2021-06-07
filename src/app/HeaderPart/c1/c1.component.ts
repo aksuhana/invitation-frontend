@@ -1,5 +1,6 @@
+import { InfoHandlerService } from './../../info-handler.service';
 import { RequestHandlerService } from './../../request-handler.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute,Params } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -10,7 +11,7 @@ import { UserUpdateService } from '../c1/UserUpdate.service'
   templateUrl: './c1.component.html',
   styleUrls: ['./c1.component.css']
 })
-export class C1Component implements OnInit {
+export class C1Component implements OnInit,OnChanges,OnDestroy {
   message:string;
   subscription: Subscription;
   paid:boolean = false;
@@ -33,7 +34,8 @@ export class C1Component implements OnInit {
   constructor(private requestHandler: RequestHandlerService,
     private route: ActivatedRoute,
     private router: Router,
-    private UserUpdateService: UserUpdateService) { }
+    private UserUpdateService: UserUpdateService,
+    private infoHandler: InfoHandlerService) { }
 
   ngOnInit(): void {
     this.subscription = this.UserUpdateService.currentMessage.subscribe(message => this.message = message)
@@ -95,5 +97,47 @@ export class C1Component implements OnInit {
     })
     this.router.navigate([''],{})
     this.UserUpdateService.changeMessage('yes')
+  }
+
+
+
+
+  ngOnChanges(){
+    this.subscription = this.UserUpdateService.currentMessage.subscribe(message => this.message = message)
+    this.invitationForm = new FormGroup({
+      'userData': new FormGroup({
+        'amount': new FormControl({ disabled: this.customMode }, Validators.required
+          // ,this.amountHandler.bind(this)
+        ),
+        'customAmount': new FormControl(null),
+        'gift': new FormControl(null)
+      })
+    })
+    this.route.params.subscribe((params:Params)=>{
+      this.id = params['id'];
+    })
+    console.log(this.id);
+    this.requestHandler.getUserWithId(this.id).subscribe(result=>{
+      this.userDetail = result;
+      if(Number(this.userDetail['amount']))
+      {
+        this.paid=true;
+      }
+    })
+
+  }
+
+
+
+  onCancel(){
+    this.infoHandler.searchText = false;
+    this.router.navigate(['../']);
+  }
+
+
+
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 }
