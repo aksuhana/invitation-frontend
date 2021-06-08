@@ -42,7 +42,7 @@ export class SearchBarComponent implements OnInit {
     this.addForm = new FormGroup({
       'name': new FormControl(null, [Validators.required, Validators.maxLength(20)]),
       'address': new FormControl(null),
-      'mobile': new FormControl(null, [Validators.required, Validators.maxLength(10), Validators.minLength(10)])
+      'mobile': new FormControl(null, [Validators.required, Validators.maxLength(10), Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")])
     })
 
   }
