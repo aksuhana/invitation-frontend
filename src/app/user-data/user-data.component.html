@@ -51,13 +51,13 @@
 	</div>
   <ng-template #deleteModal let-modal>
     <div class="modal-header">
-			<h4 class="modal-title" id="modal-basic-title">Do you want to Delete this User</h4>
+			<h4 class="modal-title" id="modal-basic-title">Do you want to Delete - {{confirmDeleteName}}</h4>
 			<button type="button" class="close btn btn-danger" aria-label="Close" (click)="modal.dismiss('Cross click')">
 				<span aria-hidden="true">X</span>
 			</button>
 		</div>
     <div class="modal-body">
-      <label>Click Yes to confirm</label>
+      <label>Click Yes to Confirm</label>
       <button type="submit" style=" margin-left: 100px;" (click)="onConfirmDelete()" class="btn btn-success">Yes</button>
     </div>
 	</ng-template>
