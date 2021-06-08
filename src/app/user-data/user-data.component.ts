@@ -14,18 +14,14 @@ import { Subscription } from 'rxjs';
 export class UserDataComponent implements OnInit {
   @ViewChild('scrollContent') scrollContent: any;
   scrollPosition = 0;
-  modalReference: any;
+  deletemodalReference: any; modalReference: any;
   searchText = '';
   Users = [];
   UpdateForm: FormGroup;
-  totalAmount: number = 0;
-  amountCalculate: number = 0;
+  totalAmount: number = 0; amountCalculate: number = 0;
   editName = '';
-  editAmount: number;
-  editAddress = '';
-  editMobile: number;
-  editGift = '';
-  editId = '';
+  editAmount: number; editAddress = ''; editMobile: number;  editGift = '';
+  editId = ''; confirmDeleteId :any; confirmDeleteName : any;
   message: string;
   subscription: Subscription;
   datatoUpdate = {
@@ -39,7 +35,8 @@ export class UserDataComponent implements OnInit {
     private request: HttpAPIRequestService,
     private http: HttpClient,
     private modalService: NgbModal,
-    private UserUpdateService: UserUpdateService
+    private UserUpdateService: UserUpdateService,
+    private deletemodalService: NgbModal
   ) {}
 
   resultHandler(resultData: any, checkDeleteUpdate: any, amountSend:any) {
@@ -72,12 +69,12 @@ export class UserDataComponent implements OnInit {
         this.subscription = this.UserUpdateService.currentMessage.subscribe(
           (message) => (this.message = message)
         );
-		
+
         if (this.message == 'yes') {
           this.request.datatoGet().subscribe((resultData) => {
             this.resultHandler(resultData, true, true);
           });
-		 
+
         }
         this.UserUpdateService.changeMessage('no');
         this.subscription.unsubscribe();
@@ -104,12 +101,23 @@ export class UserDataComponent implements OnInit {
     });
   }
 
-  onDelete(id: string, name: string) {
-    this.request.datatoDelete(id).subscribe((resultData) => {
+  onDelete(id: string, name: string, content:any) {
+    this.confirmDeleteId = id;
+    this.confirmDeleteName = name;
+    this.deletemodalReference = this.deletemodalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+    });
+    this.confirmDeleteId = id;
+    this.confirmDeleteName = name;
+  }
+
+  onConfirmDelete(){
+    this.request.datatoDelete(this.confirmDeleteId).subscribe((resultData) => {
       this.resultHandler(resultData, true,false);
     });
-    const user = this.Users.find((x) => x.name == name);
+    const user = this.Users.find((x) => x.name == this.confirmDeleteName);
     this.totalAmount = this.totalAmount - user.amount;
+    this.deletemodalReference.close();
   }
 
   onEdit(
