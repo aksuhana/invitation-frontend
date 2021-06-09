@@ -97,7 +97,7 @@ export class C1Component implements OnInit, OnChanges {
   // }
 
   onSubmit() {
-    if(!+this.invitationForm.value.userData.amount)
+    if(!(+this.invitationForm.value.userData.amount)&&!(this.customMode))
     {
       this._snackBar.open("Please Select a value!!!!","OK");
     }
