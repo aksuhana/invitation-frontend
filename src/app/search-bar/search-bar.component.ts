@@ -24,7 +24,8 @@ export class SearchBarComponent implements OnInit {
     name: '',
     address: '',
     mobile: 0,
-    isPaid: false
+    isPaid: false,
+    hindiName: ''
   };
   GuestAdded: boolean = false;
   searchText = '';
@@ -115,9 +116,11 @@ export class SearchBarComponent implements OnInit {
     this.guestData.name = this.addForm.value.name;
     this.guestData.address = this.addForm.value.address;
     this.guestData.mobile = this.addForm.value.mobile;
+    this.guestData.hindiName = this.addForm.value.hindiName;
     this.apiServ.postData(this.guestData).subscribe(result => {
       this.handler(result)
     })
+    console.log(this.guestData.hindiName)
     this.addForm.reset()
   }
   //Close Modal
