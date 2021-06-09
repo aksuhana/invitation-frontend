@@ -4,8 +4,9 @@
   <div class="input-group">
     <div class="form-outline">
      
-        <input list="form1s" type="search" placeholder="Search Guest" id="form1" class="form-control" [(ngModel)]="searchText"
+        <input list="form1s" type="search" style="display: inline;"  placeholder="Search Guest" id="form1" class="form-control" [(ngModel)]="searchText"
           (click)="onClick()" #s />
+        <button class="btn btn-warning btn-sm"(click)="onclick(addModal)">Add new Guest</button>
       
     </div>
   </div>

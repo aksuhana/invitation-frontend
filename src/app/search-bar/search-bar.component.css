@@ -6,11 +6,12 @@
   margin-top: 40px;
 }
 #form1 {
-  width: 500px;
+  width: 400px;
+  margin-right: 10px;
 }
 #scroll {
-  height: 300px;
-  width: 500px;
+  height: 250px;
+  width: 400px;
   overflow-x: hidden;
   overflow-y: auto;
   text-align: justify;
