@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
+import { Component, DoCheck, OnInit, ViewChild, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpAPIRequestService } from './HttpAPIRequest.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user-data.component.css'],
 })
 export class UserDataComponent implements OnInit, DoCheck {
+  @Input() isLang: string;
   @ViewChild('scrollContent') scrollContent: any;
   scrollPosition = 0;
   deletemodalReference: any; modalReference: any;
