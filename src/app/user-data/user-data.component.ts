@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user-data.component.css'],
 })
 export class UserDataComponent implements OnInit, DoCheck {
-  eventHappened: boolean;
   @ViewChild('scrollContent') scrollContent: any;
   scrollPosition = 0;
   deletemodalReference: any;
@@ -49,12 +48,9 @@ export class UserDataComponent implements OnInit, DoCheck {
   ) {}
 
   get buttonClick() {
-    console.log('get called');
-    this.eventHappened = this.UserUpdateService.buttonClicked;
     return false;
   }
   set buttonClick(value: boolean) {
-    console.log('new value in userdata:' + value);
     this.UserUpdateService.buttonClicked = value;
   }
 
