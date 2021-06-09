@@ -23,6 +23,9 @@
               <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="!paid">dangerous</mat-icon>
             </div>
           </div>
+          <div class = row *ngIf="showHindi">
+            {{userDetail['hindiName']}}
+          </div>
         </div>
       </div>
     </div>

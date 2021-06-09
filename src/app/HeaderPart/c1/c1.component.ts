@@ -1,3 +1,4 @@
+import { HindiNameService } from './../../HindiName.service';
 import { InfoHandlerService } from './../../info-handler.service';
 import { RequestHandlerService } from './../../request-handler.service';
 import {
@@ -18,14 +19,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './c1.component.html',
   styleUrls: ['./c1.component.css'],
 })
-export class C1Component implements OnInit, OnChanges {
+export class C1Component implements OnInit, OnChanges,DoCheck {
+  showHindi:boolean ;
   buttonClicked: boolean = false;
   messageId: string;
   searchMessage: string;
   subscription: Subscription;
+  hindSub: Subscription;
   searchSub: Subscription;
   usersub: Subscription;
   paid: boolean = false;
+  language: string;
   id = '';
   invitationForm: FormGroup;
   data = {
@@ -46,7 +50,7 @@ export class C1Component implements OnInit, OnChanges {
     private router: Router,
     private UserUpdateService: UserUpdateService,
     private infoHandler: InfoHandlerService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,private hindiNameService:HindiNameService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +58,9 @@ export class C1Component implements OnInit, OnChanges {
       (searchMessage) => (this.searchMessage = searchMessage)
     );
 
+    this.hindSub = this.hindiNameService.hindiMessage.subscribe(
+      (language)=> this.language = language
+    )
     this.subscription = this.UserUpdateService.currentId.subscribe(messageId => this.messageId = messageId)
 
     this.invitationForm = new FormGroup({
@@ -78,6 +85,19 @@ export class C1Component implements OnInit, OnChanges {
       }
     });
   }
+
+
+ngDoCheck(){
+  if(this.language == 'hind')
+  {
+    this.showHindi = true;
+  }
+  else
+  {
+    this.showHindi = false;
+  }
+}
+
 
   onClick() {
     this.customMode = !this.customMode;
