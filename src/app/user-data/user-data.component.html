@@ -22,7 +22,7 @@
 				<tr *ngFor="let user of Users | appFilter:searchText;">
 					<!-- <td scope="row">{{i+1}}</th> -->
 					<td>
-            <div>
+            <div *ngIf="isLang=='english'">
               {{user.name}}
             </div>
             <div>
