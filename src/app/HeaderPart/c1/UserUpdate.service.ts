@@ -6,13 +6,15 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class UserUpdateService {
 
-  private messageSource = new BehaviorSubject('no');
-  currentMessage = this.messageSource.asObservable();
+  // private messageSource = new BehaviorSubject('no');
+  // currentMessage = this.messageSource.asObservable();
+ buttonClicked: boolean = false;
+  constructor() {
+    console.log("new instance created");
+   }
 
-  constructor() { }
-
-  changeMessage(message: string) {
-    this.messageSource.next(message)
-  }
+  // changeMessage(message: string) {
+  //   this.messageSource.next(message)
+  // }
 
 }
