@@ -29,7 +29,7 @@ export class UserDataComponent implements OnInit, DoCheck {
   editId = '';
   confirmDeleteId: any;
   confirmDeleteName: any;
-  message: string;
+  messageId: string;
   subscription: Subscription;
   datatoUpdate = {
     name: '',
@@ -60,6 +60,7 @@ export class UserDataComponent implements OnInit, DoCheck {
         this.resultHandler(resultData, true, true);
       });
       this.buttonClick = false;
+      this.subscription.unsubscribe();
     }
   }
 
@@ -86,6 +87,7 @@ export class UserDataComponent implements OnInit, DoCheck {
     this.request.datatoGet().subscribe((resultData) => {
       this.resultHandler(resultData, false, false);
     });
+
     this.UpdateForm = new FormGroup({
       userUpdateData: new FormGroup({
         updatedName: new FormControl(null, [Validators.required]),

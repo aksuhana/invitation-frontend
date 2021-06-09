@@ -5,14 +5,14 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class UserUpdateService {
-  // private messageSource = new BehaviorSubject('no');
-  // currentMessage = this.messageSource.asObservable();
+  private messageSource = new BehaviorSubject('no');
+  currentId = this.messageSource.asObservable();
   buttonClicked: boolean = false;
   constructor() {
     console.log('new instance created');
   }
 
-  // changeMessage(message: string) {
-  //   this.messageSource.next(message)
-  // }
+  changeId(messageId: string) {
+    this.messageSource.next(messageId)
+  }
 }

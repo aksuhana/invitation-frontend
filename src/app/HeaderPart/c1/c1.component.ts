@@ -20,7 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class C1Component implements OnInit, OnChanges {
   buttonClicked: boolean = false;
-  message: string;
+  messageId: string;
   searchMessage: string;
   subscription: Subscription;
   searchSub: Subscription;
@@ -54,7 +54,7 @@ export class C1Component implements OnInit, OnChanges {
       (searchMessage) => (this.searchMessage = searchMessage)
     );
 
-    // this.subscription = this.UserUpdateService.currentMessage.subscribe(message => this.message = message)
+    this.subscription = this.UserUpdateService.currentId.subscribe(messageId => this.messageId = messageId)
 
     this.invitationForm = new FormGroup({
       userData: new FormGroup({
@@ -110,14 +110,14 @@ export class C1Component implements OnInit, OnChanges {
       }
       this.data.item.gift = this.invitationForm.value.userData.gift;
       this.requestHandler.patchUsersWithAmount(this.data).subscribe(result => {
-  
+
         console.log("Transaction Sucess!!!");
       })
       this.router.navigate([''],{})
-      // this.UserUpdateService.changeMessage('yes')
+      this.UserUpdateService.changeId(this.id)
       this.infoHandler.userSelected('no');
       this._snackBar.open("Transaction Sucessfull","OK");
-      
+
       this.buttonClick = true;
     }
   }
@@ -130,7 +130,6 @@ export class C1Component implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    // this.subscription = this.UserUpdateService.currentMessage.subscribe(message => this.message = message)
     this.invitationForm = new FormGroup({
       userData: new FormGroup({
         amount: new FormControl(
@@ -160,7 +159,7 @@ export class C1Component implements OnInit, OnChanges {
   }
 
   ngOnDestroy() {
-    // this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
     // this.usersub.unsubscribe();
   }
 }
