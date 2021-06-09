@@ -63,19 +63,11 @@ export class C1Component implements OnInit, OnChanges {
           Validators.required
           // ,this.amountHandler.bind(this)
         ),
-<<<<<<< HEAD
         'customAmount': new FormControl(null,[Validators.required, Validators.min(1)]),
         'gift': new FormControl(null)
       })
     })
     this.route.params.subscribe((params:Params)=>{
-=======
-        customAmount: new FormControl(null),
-        gift: new FormControl(null),
-      }),
-    });
-    this.route.params.subscribe((params: Params) => {
->>>>>>> addff4b9a5c52657adc2c5dc7db9ba798dcbc358
       this.id = params['id'];
     });
     console.log(this.id);
