@@ -59,13 +59,17 @@
             </div>
           </div>
         </div>
-        <button type="submit" id="addNew" class="btn btn-warning" [disabled]="!(addForm.get('name').valid && addForm.get('mobile').valid)">Add</button>
+        <button type="submit" id="addNew" class="btn btn-warning" [disabled]="!(addForm.get('name').valid && addForm.get('mobile').valid)" (click)="added(addedModal)">Add</button>
       </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-dark" data-dismiss="modal" (click)="onclose()">Close</button>
     </div>
   </div>
 </ng-template>
 
-
+<ng-template #addedModal let-modal>
+  <div class="modal-content" >
+    <div class="modal-header">
+      <h4 class="modal-title align-center">Added New Guest</h4>
+      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="onclose()">X</button>
+  </div>
+  </div>
+</ng-template>

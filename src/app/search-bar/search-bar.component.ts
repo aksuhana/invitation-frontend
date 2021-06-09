@@ -16,6 +16,7 @@ export class SearchBarComponent implements OnInit {
   searchSub:Subscription;
   searchMessage: string;
   modalReference:any;
+  modalReference2:any;
   addForm: FormGroup;
   submitted:boolean = false;
   guestData={
@@ -24,7 +25,7 @@ export class SearchBarComponent implements OnInit {
     mobile:0,
     isPaid:false
   };
-  
+  GuestAdded:boolean=false;
   searchText='';
   guests = [];
   mainToggle:boolean =true;
@@ -104,10 +105,14 @@ export class SearchBarComponent implements OnInit {
     this.modalReference = this.modalService.open(modal, {ariaLabelledBy: 'modal-basic-title'})
     this.searchText = "";
   }
+  added( modal2:any){
+    this.modalReference2 = this.modalService.open(modal2, {ariaLabelledBy: 'modal-basic-title'})
+    this.modalReference.close();
+  }
   //Add Guest
   onAddSubmit(){
     this.submitted = true;
-    
+    this.GuestAdded = true;
     this.guestData.name= this.addForm.value.name;
     this.guestData.address= this.addForm.value.address;
     this.guestData.mobile = this.addForm.value.mobile;
@@ -119,6 +124,7 @@ export class SearchBarComponent implements OnInit {
   //Close Modal
   onclose(){
     this.modalReference.close();
+    this.modalReference2.close();
   }
   ngOnDestroy(){
     this.searchSub.unsubscribe();
