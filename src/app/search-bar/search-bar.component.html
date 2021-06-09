@@ -15,7 +15,8 @@
       <tbody>
         <tr *ngFor="let guest of guests | userFilter:searchText;" id="bor">
           <td id="guest_id" style="cursor: pointer; background-color: rgb(255, 135, 113);" (click)="onclick(addModal)" *ngIf="guest.name == 'Match Not Found'">{{guest.name}}</td>
-          <td id="guest_id" style="cursor: pointer;" (click)="onSelect(guest)" *ngIf="guest.name != 'Match Not Found'">{{guest.name}}</td>
+          <td id="guest_id" style="cursor: pointer;" (click)="onSelect(guest)" *ngIf="(guest.name != 'Match Not Found' && isLang==='english')">{{guest.name}}</td>
+          <td id="guest_id" style="cursor: pointer;" (click)="onSelect(guest)" *ngIf="(guest.name != 'Match Not Found')">{{guest.hindiName}}</td>
           <td>
             <div>
               <div *ngIf="guest.name != 'Match Not Found'" >
@@ -57,6 +58,10 @@
                 *ngIf="!(addForm.get('mobile').valid && addForm.get('mobile').touched)"
                 class="help-block">
               </span>
+            </div>
+            <div class="form-group">
+              <label>Hindi Name</label>
+              <input type="text"  formControlName="hindiName" class="form-control" />
             </div>
           </div>
         </div>

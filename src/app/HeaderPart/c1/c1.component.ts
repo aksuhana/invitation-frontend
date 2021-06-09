@@ -3,6 +3,7 @@ import { RequestHandlerService } from './../../request-handler.service';
 import {
   Component,
   DoCheck,
+  Input,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -47,7 +48,7 @@ export class C1Component implements OnInit, OnChanges {
     private UserUpdateService: UserUpdateService,
     private infoHandler: InfoHandlerService,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.usersub = this.infoHandler.currentMessage.subscribe(
@@ -63,11 +64,11 @@ export class C1Component implements OnInit, OnChanges {
           Validators.required
           // ,this.amountHandler.bind(this)
         ),
-        'customAmount': new FormControl(null,[Validators.required, Validators.min(1)]),
+        'customAmount': new FormControl(null, [Validators.required, Validators.min(1)]),
         'gift': new FormControl(null)
       })
     })
-    this.route.params.subscribe((params:Params)=>{
+    this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
     });
     console.log(this.id);
@@ -97,9 +98,8 @@ export class C1Component implements OnInit, OnChanges {
   // }
 
   onSubmit() {
-    if(!(+this.invitationForm.value.userData.amount)&&!(this.customMode))
-    {
-      this._snackBar.open("Please Select a value!!!!","OK");
+    if (!(+this.invitationForm.value.userData.amount) && !(this.customMode)) {
+      this._snackBar.open("Please Select a value!!!!", "OK");
     }
     else {
       this.data.id = this.id;
@@ -113,10 +113,10 @@ export class C1Component implements OnInit, OnChanges {
 
         console.log("Transaction Sucess!!!");
       })
-      this.router.navigate([''],{})
+      this.router.navigate([''], {})
       this.UserUpdateService.changeId(this.id)
       this.infoHandler.userSelected('no');
-      this._snackBar.open("Transaction Sucessfull","OK");
+      this._snackBar.open("Transaction Sucessfull", "OK");
 
       this.buttonClick = true;
     }
