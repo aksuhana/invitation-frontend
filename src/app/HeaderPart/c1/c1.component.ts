@@ -55,7 +55,7 @@ export class C1Component implements OnInit,OnChanges {
         'amount': new FormControl({ disabled: this.customMode }, Validators.required
           // ,this.amountHandler.bind(this)
         ),
-        'customAmount': new FormControl(null),
+        'customAmount': new FormControl(null,[Validators.required, Validators.min(1)]),
         'gift': new FormControl(null)
       })
     })
@@ -96,24 +96,29 @@ export class C1Component implements OnInit,OnChanges {
   // }
 
   onSubmit() {
-    this.data.id = this.id;
-    if (!this.customMode)
-      this.data.item.amount = Number(this.invitationForm.value.userData.amount);
-    else {
-      this.data.item.amount = this.invitationForm.value.userData.customAmount;
+    if(!+this.invitationForm.value.userData.amount)
+    {
+      this._snackBar.open("Please Select a value!!!!","OK");
     }
-    this.data.item.gift = this.invitationForm.value.userData.gift;
-    this.requestHandler.patchUsersWithAmount(this.data).subscribe(result => {
-
-      console.log("Transaction Sucess!!!");
-    })
-    this.router.navigate([''],{})
-    // this.UserUpdateService.changeMessage('yes')
-    this.infoHandler.userSelected('no');
-    this._snackBar.open("Transaction Sucessfull","OK");
-    
-    this.buttonClick = true;
+    else {
+      this.data.id = this.id;
+      if (!this.customMode)
+        this.data.item.amount = Number(this.invitationForm.value.userData.amount);
+      else {
+        this.data.item.amount = this.invitationForm.value.userData.customAmount;
+      }
+      this.data.item.gift = this.invitationForm.value.userData.gift;
+      this.requestHandler.patchUsersWithAmount(this.data).subscribe(result => {
   
+        console.log("Transaction Sucess!!!");
+      })
+      this.router.navigate([''],{})
+      // this.UserUpdateService.changeMessage('yes')
+      this.infoHandler.userSelected('no');
+      this._snackBar.open("Transaction Sucessfull","OK");
+      
+      this.buttonClick = true;
+    }
   }
  get buttonClick(){
    return this.UserUpdateService.buttonClicked;
