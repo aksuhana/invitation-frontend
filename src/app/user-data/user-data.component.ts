@@ -66,6 +66,7 @@ export class UserDataComponent implements OnInit, DoCheck {
       this.buttonClick = false;
     }
   }
+
   resultHandler(resultData: any, checkDeleteUpdate: any, amountSend: any) {
     let n = Object.keys(resultData).length;
     this.Users = [];
@@ -83,30 +84,6 @@ export class UserDataComponent implements OnInit, DoCheck {
         }
       }
     }
-
-    // if (!checkDeleteUpdate) {
-    //   setInterval(() => {
-    //     this.scrollContent.nativeElement.scrollTop +=
-    //       this.scrollContent.nativeElement.scrollHeight / this.Users.length;
-    //     if (this.scrollContent.nativeElement.scrollTop == this.scrollPosition) {
-    //       this.scrollContent.nativeElement.scrollTop = 0;
-    //     } else {
-    //       this.scrollPosition = this.scrollContent.nativeElement.scrollTop;
-    //     }
-    //     // this.subscription = this.UserUpdateService.currentMessage.subscribe(
-    //     //   (message) => (this.message = message)
-    //     // );
-
-    //     if (this.message == 'yes') {
-    //       this.request.datatoGet().subscribe((resultData) => {
-    //         this.resultHandler(resultData, true, true);
-    //       });
-
-    //     }
-    //     // this.UserUpdateService.changeMessage('no');
-    //     this.subscription.unsubscribe();
-    //   }, 2000);
-    // }
   }
 
   ngOnInit(): void {
