@@ -21,7 +21,14 @@
 			<tbody>
 				<tr *ngFor="let user of Users | appFilter:searchText;">
 					<!-- <td scope="row">{{i+1}}</th> -->
-					<td>{{user.name}}</td>
+					<td>
+            <div>
+              {{user.name}}
+            </div>
+            <div>
+              {{user.hindiName}}
+            </div>
+          </td>
 					<td>{{user.amount}}</td>
 					<td>
 						<div>
