@@ -1,11 +1,11 @@
 import { Subscription } from 'rxjs';
 import { InfoHandlerService } from './../info-handler.service';
-import { Component, ElementRef, OnChanges, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
 import { HttpApiService } from "../httpApi.service";
 import { Router } from '@angular/router';
-import {  FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { HindiNameService } from "../HindiName.service";
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -13,120 +13,122 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class SearchBarComponent implements OnInit {
   @ViewChild('s') search: ElementRef;
-  searchSub:Subscription;
+  @Input() isLang: string;
+  searchSub: Subscription;
   searchMessage: string;
-  modalReference:any;
-  modalReference2:any;
+  modalReference: any;
+  modalReference2: any;
   addForm: FormGroup;
-  submitted:boolean = false;
-  guestData={
-    name:'',
-    address:'',
-    mobile:0,
-    isPaid:false
+  submitted: boolean = false;
+  guestData = {
+    name: '',
+    address: '',
+    mobile: 0,
+    isPaid: false,
+    hindiName: ''
   };
-  GuestAdded:boolean=false;
-  searchText='';
+  GuestAdded: boolean = false;
+  searchText = '';
   guests = [];
-  mainToggle:boolean =true;
-  itemSelected:boolean = false;
-  notFound:boolean=false;
-  constructor(private apiServ: HttpApiService,private modalService: NgbModal,
+  mainToggle: boolean = true;
+  itemSelected: boolean = false;
+  notFound: boolean = false;
+
+  constructor(
+    private hindiService: HindiNameService,
+    private apiServ: HttpApiService,
+    private modalService: NgbModal,
     private router: Router,
     private infoHandler: InfoHandlerService) { }
 
   ngOnInit(): void {
     // console.log("on init called");
-    this.apiServ.getData().subscribe(result=>{
+    this.apiServ.getData().subscribe(result => {
       this.handler(result)
     })
     this.addForm = new FormGroup({
       'name': new FormControl(null, [Validators.required, Validators.maxLength(20)]),
       'address': new FormControl(null),
-      'mobile': new FormControl(null, [Validators.required, Validators.maxLength(10), Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")])
+      'mobile': new FormControl(null, [Validators.required, Validators.maxLength(10), Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+      'hindiName': new FormControl(null)
     })
-
   }
- 
+
   //add guests data from server to component
-  handler(result:any){
+  handler(result: any) {
     let x = Object.keys(result).length;
     this.guests = [];
-      for(let i=0;i<x;i++)
-      {
-        this.guests.push(result[i]);
-        // console.log("Paid-----------"+result[i].amount)
-        if(Number(result[i].amount))
-        {
-          result[i].isPaid=true;
-        }
+    for (let i = 0; i < x; i++) {
+      this.guests.push(result[i]);
+      // console.log("Paid-----------"+result[i].amount)
+      if (Number(result[i].amount)) {
+        result[i].isPaid = true;
       }
+    }
   }
- 
-  ngDoCheck(){
+
+  ngDoCheck() {
     this.searchSub = this.infoHandler.currentMessage.subscribe(
-      searchMessage=>this.searchMessage = searchMessage
+      searchMessage => this.searchMessage = searchMessage
     )
-      if(this.searchMessage=='yes')
-      {
-        this.search.nativeElement.disabled=true;
+    if (this.searchMessage == 'yes') {
+      this.search.nativeElement.disabled = true;
+    }
+    else if (this.search) {
+      if (this.searchMessage == 'no') {
+        this.search.nativeElement.disabled = false;
       }
-      else if(this.search)
-      {
-        if(this.searchMessage=='no')
-        {
-          this.search.nativeElement.disabled=false;
-        }
-      }
-      
+    }
   }
   //GET Data from server
-  onClick(){
+  onClick() {
     this.itemSelected = false;
-    this.apiServ.getData().subscribe(result=>{
+    this.apiServ.getData().subscribe(result => {
       this.handler(result)
     })
   }
   //Select one guest
-  onSelect(data:any){
+  onSelect(data: any) {
     this.mainToggle = false;
     this.infoHandler.userSelected('yes');
     //this is to add disable text field feature in form after the particular user is selected
-    this.search.nativeElement.disabled=true;
+    this.search.nativeElement.disabled = true;
     this.itemSelected = true;
-    this.router.navigate(['/user',data._id],{})
+    this.router.navigate(['/user', data._id], {})
     this.searchText = "";
   }
-  onNewGuest(){
-    this.notFound=true;
+  onNewGuest() {
+    this.notFound = true;
   }
   //Modal open
-  onclick( modal:any){
-    this.modalReference = this.modalService.open(modal, {ariaLabelledBy: 'modal-basic-title'})
+  onclick(modal: any) {
+    this.modalReference = this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title' })
     this.searchText = "";
   }
-  added( modal2:any){
-    this.modalReference2 = this.modalService.open(modal2, {ariaLabelledBy: 'modal-basic-title'})
+  added(modal2: any) {
+    this.modalReference2 = this.modalService.open(modal2, { ariaLabelledBy: 'modal-basic-title' })
     this.modalReference.close();
   }
   //Add Guest
-  onAddSubmit(){
+  onAddSubmit() {
     this.submitted = true;
     this.GuestAdded = true;
-    this.guestData.name= this.addForm.value.name;
-    this.guestData.address= this.addForm.value.address;
+    this.guestData.name = this.addForm.value.name;
+    this.guestData.address = this.addForm.value.address;
     this.guestData.mobile = this.addForm.value.mobile;
-    this.apiServ.postData(this.guestData).subscribe(result=>{
+    this.guestData.hindiName = this.addForm.value.hindiName;
+    this.apiServ.postData(this.guestData).subscribe(result => {
       this.handler(result)
     })
+    console.log(this.guestData.hindiName)
     this.addForm.reset()
   }
   //Close Modal
-  onclose(){
+  onclose() {
     this.modalReference.close();
     this.modalReference2.close();
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.searchSub.unsubscribe();
   }
 }

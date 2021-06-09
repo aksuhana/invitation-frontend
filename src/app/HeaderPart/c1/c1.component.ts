@@ -4,6 +4,7 @@ import { RequestHandlerService } from './../../request-handler.service';
 import {
   Component,
   DoCheck,
+  Input,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -50,8 +51,13 @@ export class C1Component implements OnInit, OnChanges,DoCheck {
     private router: Router,
     private UserUpdateService: UserUpdateService,
     private infoHandler: InfoHandlerService,
+<<<<<<< HEAD
     private _snackBar: MatSnackBar,private hindiNameService:HindiNameService
   ) {}
+=======
+    private _snackBar: MatSnackBar
+  ) { }
+>>>>>>> 37f114ab099f647926601e0a1b02315db967f83a
 
   ngOnInit(): void {
     this.usersub = this.infoHandler.currentMessage.subscribe(
@@ -70,11 +76,11 @@ export class C1Component implements OnInit, OnChanges,DoCheck {
           Validators.required
           // ,this.amountHandler.bind(this)
         ),
-        'customAmount': new FormControl(null,[Validators.required, Validators.min(1)]),
+        'customAmount': new FormControl(null, [Validators.required, Validators.min(1)]),
         'gift': new FormControl(null)
       })
     })
-    this.route.params.subscribe((params:Params)=>{
+    this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
     });
     console.log(this.id);
@@ -117,9 +123,8 @@ ngDoCheck(){
   // }
 
   onSubmit() {
-    if(!(+this.invitationForm.value.userData.amount)&&!(this.customMode))
-    {
-      this._snackBar.open("Please Select a value!!!!","OK");
+    if (!(+this.invitationForm.value.userData.amount) && !(this.customMode)) {
+      this._snackBar.open("Please Select a value!!!!", "OK");
     }
     else {
       this.data.id = this.id;
@@ -133,10 +138,10 @@ ngDoCheck(){
 
         console.log("Transaction Sucess!!!");
       })
-      this.router.navigate([''],{})
+      this.router.navigate([''], {})
       this.UserUpdateService.changeId(this.id)
       this.infoHandler.userSelected('no');
-      this._snackBar.open("Transaction Sucessfull","OK");
+      this._snackBar.open("Transaction Sucessfull", "OK");
 
       this.buttonClick = true;
     }

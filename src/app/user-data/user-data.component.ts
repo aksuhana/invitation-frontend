@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
+import { Component, DoCheck, OnInit, ViewChild, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpAPIRequestService } from './HttpAPIRequest.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,24 +12,16 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user-data.component.css'],
 })
 export class UserDataComponent implements OnInit, DoCheck {
+  @Input() isLang: string;
   @ViewChild('scrollContent') scrollContent: any;
   scrollPosition = 0;
-  deletemodalReference: any;
-  modalReference: any;
+  deletemodalReference: any; modalReference: any;
   searchText = '';
   Users = [];
   UpdateForm: FormGroup;
-  totalAmount: number = 0;
-  amountCalculate: number = 0;
-  editName = '';
-  editAmount: number;
-  editAddress = '';
-  editMobile: number;
-  editGift = '';
-  editId = '';
-  confirmDeleteId: any;
-  confirmDeleteName: any;
-  messageId: string;
+  totalAmount: number = 0; amountCalculate: number = 0;
+  editName = ''; editAmount: number; editAddress = ''; editMobile: number; editGift = ''; editId = '';
+  confirmDeleteId: any; confirmDeleteName: any;
   subscription: Subscription;
   datatoUpdate = {
     name: '',
@@ -60,7 +52,7 @@ export class UserDataComponent implements OnInit, DoCheck {
         this.resultHandler(resultData, true, true);
       });
       this.buttonClick = false;
-      this.subscription.unsubscribe();
+      // this.subscription.unsubscribe();
     }
   }
 

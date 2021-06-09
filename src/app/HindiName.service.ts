@@ -12,4 +12,5 @@ export class HindiNameService {
   LangSelected(message: string) {
     this.hindiSource.next(message)
   }
+
 }
