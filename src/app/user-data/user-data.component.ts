@@ -19,18 +19,13 @@ export class UserDataComponent implements OnInit {
   Users = [];
   UpdateForm: FormGroup;
   totalAmount: number = 0; amountCalculate: number = 0;
-  editName = '';
-  editAmount: number; editAddress = ''; editMobile: number;  editGift = '';
-  editId = ''; confirmDeleteId :any; confirmDeleteName : any;
+  editName = ''; editAmount: number; editAddress = ''; editMobile: number;  editGift = ''; editId = '';
+  confirmDeleteId :any; confirmDeleteName : any;
   message: string;
   subscription: Subscription;
-  datatoUpdate = {
-    name: '',
-    amount: 0,
-    address: '',
-    mobile: 9999999999,
-    gift: '',
-  };
+  datatoUpdate = { name: '', amount: 0, address: '', mobile: 9999999999, gift: '' };
+
+
   constructor(
     private request: HttpAPIRequestService,
     private http: HttpClient,
@@ -42,19 +37,19 @@ export class UserDataComponent implements OnInit {
   resultHandler(resultData: any, checkDeleteUpdate: any, amountSend:any) {
     let n = Object.keys(resultData).length;
     this.Users = [];
-	if(amountSend)
-	{
-		this.totalAmount = 0;
-	}
+    if(amountSend)
+    {
+      this.totalAmount = 0;
+    }
     for (let i = 0; i < n; i++) {
       if (resultData[i].amount) {
         this.Users.push(resultData[i]);
         if (!checkDeleteUpdate) {
           this.totalAmount = this.totalAmount + resultData[i].amount;
         }
-		if (amountSend) {
-			this.totalAmount = this.totalAmount + resultData[i].amount;
-		  }
+        if (amountSend) {
+          this.totalAmount = this.totalAmount + resultData[i].amount;
+        }
       }
     }
     if (!checkDeleteUpdate) {
