@@ -20,8 +20,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './c1.component.html',
   styleUrls: ['./c1.component.css'],
 })
-export class C1Component implements OnInit, OnChanges,DoCheck {
-  showHindi:boolean ;
+export class C1Component implements OnInit, OnChanges, DoCheck {
+  showHindi: boolean;
   buttonClicked: boolean = false;
   messageId: string;
   searchMessage: string;
@@ -51,13 +51,8 @@ export class C1Component implements OnInit, OnChanges,DoCheck {
     private router: Router,
     private UserUpdateService: UserUpdateService,
     private infoHandler: InfoHandlerService,
-<<<<<<< HEAD
-    private _snackBar: MatSnackBar,private hindiNameService:HindiNameService
-  ) {}
-=======
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar, private hindiNameService: HindiNameService
   ) { }
->>>>>>> 37f114ab099f647926601e0a1b02315db967f83a
 
   ngOnInit(): void {
     this.usersub = this.infoHandler.currentMessage.subscribe(
@@ -65,7 +60,7 @@ export class C1Component implements OnInit, OnChanges,DoCheck {
     );
 
     this.hindSub = this.hindiNameService.hindiMessage.subscribe(
-      (language)=> this.language = language
+      (language) => this.language = language
     )
     this.subscription = this.UserUpdateService.currentId.subscribe(messageId => this.messageId = messageId)
 
@@ -93,16 +88,14 @@ export class C1Component implements OnInit, OnChanges,DoCheck {
   }
 
 
-ngDoCheck(){
-  if(this.language == 'hind')
-  {
-    this.showHindi = true;
+  ngDoCheck() {
+    if (this.language == 'hindi') {
+      this.showHindi = true;
+    }
+    else {
+      this.showHindi = false;
+    }
   }
-  else
-  {
-    this.showHindi = false;
-  }
-}
 
 
   onClick() {
