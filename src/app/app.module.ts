@@ -11,6 +11,7 @@ import { FilterPipe } from "./search-bar/filter.pipe";
 import { UserFilterPipe } from "./user-data/filter.pipe";
 import { C1Component } from './HeaderPart/c1/c1.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { NavbarComponent } from './navbar/navbar.component';
 
 
@@ -31,7 +32,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

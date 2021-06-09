@@ -6,6 +6,7 @@ import { ActivatedRoute,Params } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserUpdateService } from '../c1/UserUpdate.service'
+import { MatSnackBar } from '@angular/material/snack-bar'
 @Component({
   selector: 'app-c1',
   templateUrl: './c1.component.html',
@@ -39,7 +40,8 @@ export class C1Component implements OnInit,OnChanges {
     private route: ActivatedRoute,
     private router: Router,
     private UserUpdateService: UserUpdateService,
-    private infoHandler: InfoHandlerService) { }
+    private infoHandler: InfoHandlerService,
+   private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.usersub=this.infoHandler.currentMessage.subscribe(
@@ -108,6 +110,7 @@ export class C1Component implements OnInit,OnChanges {
     this.router.navigate([''],{})
     this.UserUpdateService.changeMessage('yes')
     this.infoHandler.userSelected('no');
+    this._snackBar.open("Transaction Sucessfull","OK");
   }
 
 
