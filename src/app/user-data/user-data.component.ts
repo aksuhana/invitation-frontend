@@ -62,7 +62,7 @@ export class UserDataComponent implements OnInit, DoCheck {
     if (amountSend) {
       this.totalAmount = 0;
     }
-    for (let i = 0; i < n; i++) {
+    for (let i = n-1; i >= 0; i--) {
       if (resultData[i].amount) {
         this.Users.push(resultData[i]);
         if (!checkDeleteUpdate) {
