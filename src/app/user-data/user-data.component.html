@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row-md-4" id="flex">
 		<p style="margin-top: 10px; margin-left: 30px;">Name</p>
-		<p style="margin-top: 10px; margin-left: 70px;">Amount</p>
+		<p style="margin-top: 10px; margin-left: 70px;">Amount(&#8377;)</p>
 		<p style="margin-top: 10px; margin-left: 60px;">Action</p>
     </div>
 	<div class="input-group">
@@ -29,7 +29,7 @@
               {{user.hindiName}}
             </div>
           </td>
-					<td>{{user.amount}}</td>
+					<td>&#8377; {{user.amount}}</td>
 					<td>
 						<div>
 							<button type="button" (click)="onDelete(user._id, user.name, deleteModal)" class="btn btn-outline-danger">
