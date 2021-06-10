@@ -2,12 +2,10 @@
 
 <div class="bar">
   <div class="input-group">
-    <div class="form-outline">
-     
+    <div class="form-outline">     
         <input list="form1s" type="search" style="display: inline;"  placeholder="Search Guest" id="form1" class="form-control" [(ngModel)]="searchText"
           (click)="onClick()" #s />
-        <button class="btn btn-warning btn-sm"(click)="onclick(addModal)">Add new Guest</button>
-      
+        <button class="btn btn-warning btn-sm"(click)="onclick(addModal)">Add new Guest</button>      
     </div>
   </div>
   <div class="card " style="margin-left: 20px; margin-top: 0px;" id="scroll" [hidden]="!(searchText.length > 0)" *ngIf="!itemSelected">
