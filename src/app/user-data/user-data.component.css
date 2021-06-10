@@ -3,13 +3,32 @@
   width: 400px;
   overflow-x: hidden;
   overflow-y: auto;
-  text-align:justify;
+  text-align: justify;
 }
 
-#flex{
+#flex {
   display: flex;
   width: 400px;
   height: 50px;
   background-color: green;
   margin-bottom: 2px;
+}
+#amount {
+  display: inline-block;
+  line-height: 0px;
+
+  border-radius: 50%;
+  border: 2px solid;
+
+  font-size: 32px;
+  background-color: #ffc107;
+}
+#amount > span {
+  display: inline-block;
+
+  padding-top: 50%;
+  padding-bottom: 50%;
+
+  margin-left: 8px;
+  margin-right: 8px;
 }

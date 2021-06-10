@@ -25,7 +25,8 @@ export class SearchBarComponent implements OnInit {
     address: '',
     mobile: 0,
     isPaid: false,
-    hindiName: ''
+    hindiName: '',
+    hindiAddress: ''
   };
   GuestAdded: boolean = false;
   searchText = '';
@@ -50,7 +51,8 @@ export class SearchBarComponent implements OnInit {
       'name': new FormControl(null, [Validators.required, Validators.maxLength(20)]),
       'address': new FormControl(null),
       'mobile': new FormControl(null, [Validators.required, Validators.maxLength(10), Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
-      'hindiName': new FormControl(null)
+      'hindiName': new FormControl(null),
+      'hindiAddress': new FormControl(null),
     })
   }
 
@@ -117,6 +119,7 @@ export class SearchBarComponent implements OnInit {
     this.guestData.address = this.addForm.value.address;
     this.guestData.mobile = this.addForm.value.mobile;
     this.guestData.hindiName = this.addForm.value.hindiName;
+    this.guestData.hindiAddress = this.addForm.value.hindiAddress;
     this.apiServ.postData(this.guestData).subscribe(result => {
       this.handler(result)
     })
