@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<h2 *ngIf="currentUser.length!=0">Last Submitted By: {{currentUser}}</h2>
 <h2 style="margin-left:60px ; font-size: x-large;"><span id="amount"><span>&#8377;{{totalAmount}}</span></span></h2>
 
 <div class="container">

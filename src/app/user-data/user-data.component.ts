@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class UserDataComponent implements OnInit, DoCheck {
   @Input() isLang: string;
+  @Input() currentUser: string;
   @ViewChild('scrollContent') scrollContent: any;
   scrollPosition = 0;
   deletemodalReference: any; modalReference: any;
