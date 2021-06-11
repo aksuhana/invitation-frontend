@@ -1,16 +1,25 @@
 <div class="full">
   <app-navbar></app-navbar>
   <div class="container">
+    
+      
+    
       <div class="row" >
         <div class=" col-md-7" style="margin-top: 200px;">
             <h1>Welcome to Wedding</h1>
+            <div class="card my-7">
+              <div class="card-body">
+                <h4 class="card-title">Latest Submission</h4>
+              <p>{{currentUserName}}</p>
+              </div>
+            </div>
             <label class="switch" style="margin-top: 10px;">
               <input type="checkbox" (click)="toggle()" >
               <span class="slider round"></span>
             </label>
             <span style="margin: 20px 10px;">{{language}}</span>
           <app-search-bar [isLang]="language"></app-search-bar>
-          <router-outlet></router-outlet>
+          <router-outlet (newEvent)="onActivate()"></router-outlet>
       </div>
         <div class="col-md-5" style="margin-top: 110px;">
           <app-user-data [isLang]="language"></app-user-data>

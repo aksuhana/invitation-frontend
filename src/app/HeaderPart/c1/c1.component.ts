@@ -4,10 +4,12 @@ import { RequestHandlerService } from './../../request-handler.service';
 import {
   Component,
   DoCheck,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -15,6 +17,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserUpdateService } from '../c1/UserUpdate.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-c1',
   templateUrl: './c1.component.html',
@@ -137,7 +140,7 @@ ngDoCheck(){
       this.UserUpdateService.changeId(this.id)
       this.infoHandler.userSelected('no');
       this._snackBar.open("Transaction Sucessfull", "OK");
-
+      this.infoHandler.latestUser(this.userDetail['name']);
       this.buttonClick = true;
     }
   }

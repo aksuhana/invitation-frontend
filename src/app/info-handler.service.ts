@@ -5,9 +5,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class InfoHandlerService {
-
+  private userSource = new BehaviorSubject('');
   private messageSource = new BehaviorSubject('no');
   currentMessage = this.messageSource.asObservable();
+  latest = this.userSource.asObservable();
   userData = {
     name:"",
     address:"",
@@ -16,5 +17,8 @@ export class InfoHandlerService {
   constructor() { }
   userSelected(message: string) {
     this.messageSource.next(message)
+  }
+  latestUser(message: string){
+    this.userSource.next(message)
   }
 }
