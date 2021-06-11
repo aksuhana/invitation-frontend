@@ -11,10 +11,10 @@
   <div class="card " style="margin-left: 20px; margin-top: 0px;" id="scroll" [hidden]="!(searchText.length > 0)" *ngIf="!itemSelected">
     <table class="table">
       <tbody>
-        <tr class="guest_id" *ngFor="let guest of guests | userFilter:searchText;" id="bor">
+        <tr class="guest_id" (click)="onSelect(guest)" *ngFor="let guest of guests | userFilter:searchText;" id="bor">
           <td  style="cursor: pointer; background-color: rgb(255, 135, 113);" (click)="onclick(addModal)" *ngIf="guest.name == 'Match Not Found'">{{guest.name}}</td>
           <td >
-              <div  style="cursor: pointer;" (click)="onSelect(guest)" *ngIf="(guest.name != 'Match Not Found' && isLang==='english')">
+              <div  style="cursor: pointer;"*ngIf="(guest.name != 'Match Not Found' && isLang==='english')">
                 {{guest.name}}
               </div>
               <div>
@@ -22,7 +22,7 @@
               </div>
             </td>
             <td >
-              <div  style="cursor: pointer;" (click)="onSelect(guest)" *ngIf="(guest.name != 'Match Not Found' && isLang==='english')">
+              <div  style="cursor: pointer;" *ngIf="(guest.name != 'Match Not Found' && isLang==='english')">
                 {{guest.address}}
               </div>
               <div>
