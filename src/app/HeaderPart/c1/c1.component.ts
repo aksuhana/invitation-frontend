@@ -32,6 +32,7 @@ export class C1Component implements OnInit, OnChanges,DoCheck {
   hindSub: Subscription;
   searchSub: Subscription;
   usersub: Subscription;
+  userCreated = false;
   paid: boolean = false;
   language: string;
   id = '';
@@ -84,6 +85,7 @@ export class C1Component implements OnInit, OnChanges,DoCheck {
     console.log(this.id);
     this.requestHandler.getUserWithId(this.id).subscribe((result) => {
       this.userDetail = result;
+      this.userCreated = true;
       if (Number(this.userDetail['amount'])) {
         this.paid = true;
       }

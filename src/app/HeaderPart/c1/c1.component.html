@@ -4,7 +4,7 @@
     <div class="col-md-10">
       <div class="card">
         <div class="card-body">
-          <div class="row" id="row2">
+          <div class="row" id="row2" *ngIf="userCreated">
             <div class="col-md-4">
               <h4 style="font-weight:500; font-size: large;">
                 {{userDetail['name']}}
