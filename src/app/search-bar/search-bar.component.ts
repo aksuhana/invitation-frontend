@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { InfoHandlerService } from './../info-handler.service';
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpApiService } from "../httpApi.service";
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
@@ -36,7 +36,6 @@ export class SearchBarComponent implements OnInit {
   notFound: boolean = false;
 
   constructor(
-    private hindiService: HindiNameService,
     private apiServ: HttpApiService,
     private modalService: NgbModal,
     private router: Router,

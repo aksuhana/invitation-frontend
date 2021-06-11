@@ -17,7 +17,7 @@
   text-align: justify;
   border: none;
 }
-#guest_id:hover {
+.guest_id:hover {
   background-color: rgb(192, 220, 247);
 }
 #bor {
