@@ -1,15 +1,15 @@
 import { Subscription } from 'rxjs';
 import { InfoHandlerService } from './../info-handler.service';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { HttpApiService } from "../httpApi.service";
+import { HttpApiService } from '../httpApi.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { HindiNameService } from "../HindiName.service";
+import { HindiNameService } from '../HindiName.service';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.css']
+  styleUrls: ['./search-bar.component.css'],
 })
 export class SearchBarComponent implements OnInit {
   @ViewChild('s') search: ElementRef;
@@ -26,7 +26,7 @@ export class SearchBarComponent implements OnInit {
     mobile: 0,
     isPaid: false,
     hindiName: '',
-    hindiAddress: ''
+    hindiAddress: '',
   };
   GuestAdded: boolean = false;
   searchText = '';
@@ -39,20 +39,28 @@ export class SearchBarComponent implements OnInit {
     private apiServ: HttpApiService,
     private modalService: NgbModal,
     private router: Router,
-    private infoHandler: InfoHandlerService) { }
+    private infoHandler: InfoHandlerService
+  ) {}
 
   ngOnInit(): void {
     // console.log("on init called");
-    this.apiServ.getData().subscribe(result => {
-      this.handler(result)
-    })
+    this.apiServ.getData().subscribe((result) => {
+      this.handler(result);
+    });
     this.addForm = new FormGroup({
-      'name': new FormControl(null, [Validators.required, Validators.maxLength(20)]),
-      'address': new FormControl(null),
-      'mobile': new FormControl(null, [Validators.required, Validators.maxLength(10), Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
-      'hindiName': new FormControl(null),
-      'hindiAddress': new FormControl(null),
-    })
+      name: new FormControl(null, [
+        Validators.required,
+        Validators.maxLength(20),
+      ]),
+      address: new FormControl(null),
+      mobile: new FormControl(null, [
+        Validators.required,
+        Validators.maxLength(10),
+        Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+      ]),
+      hindiName: new FormControl(null),
+      hindiAddress: new FormControl(null),
+    });
   }
 
   //add guests data from server to component
@@ -70,12 +78,11 @@ export class SearchBarComponent implements OnInit {
 
   ngDoCheck() {
     this.searchSub = this.infoHandler.currentMessage.subscribe(
-      searchMessage => this.searchMessage = searchMessage
-    )
+      (searchMessage) => (this.searchMessage = searchMessage)
+    );
     if (this.searchMessage == 'yes') {
       this.search.nativeElement.disabled = true;
-    }
-    else if (this.search) {
+    } else if (this.search) {
       if (this.searchMessage == 'no') {
         this.search.nativeElement.disabled = false;
       }
@@ -84,9 +91,9 @@ export class SearchBarComponent implements OnInit {
   //GET Data from server
   onClick() {
     this.itemSelected = false;
-    this.apiServ.getData().subscribe(result => {
-      this.handler(result)
-    })
+    this.apiServ.getData().subscribe((result) => {
+      this.handler(result);
+    });
   }
   //Select one guest
   onSelect(data: any) {
@@ -95,19 +102,23 @@ export class SearchBarComponent implements OnInit {
     //this is to add disable text field feature in form after the particular user is selected
     this.search.nativeElement.disabled = true;
     this.itemSelected = true;
-    this.router.navigate(['/user', data._id], {})
-    this.searchText = "";
+    this.router.navigate(['/user', data._id], {});
+    this.searchText = '';
   }
   onNewGuest() {
     this.notFound = true;
   }
   //Modal open
   onclick(modal: any) {
-    this.modalReference = this.modalService.open(modal, { ariaLabelledBy: 'modal-basic-title' })
-    this.searchText = "";
+    this.modalReference = this.modalService.open(modal, {
+      ariaLabelledBy: 'modal-basic-title',
+    });
+    this.searchText = '';
   }
   added(modal2: any) {
-    this.modalReference2 = this.modalService.open(modal2, { ariaLabelledBy: 'modal-basic-title' })
+    this.modalReference2 = this.modalService.open(modal2, {
+      ariaLabelledBy: 'modal-basic-title',
+    });
     this.modalReference.close();
   }
   //Add Guest
@@ -119,11 +130,11 @@ export class SearchBarComponent implements OnInit {
     this.guestData.mobile = this.addForm.value.mobile;
     this.guestData.hindiName = this.addForm.value.hindiName;
     this.guestData.hindiAddress = this.addForm.value.hindiAddress;
-    this.apiServ.postData(this.guestData).subscribe(result => {
-      this.handler(result)
-    })
-    console.log(this.guestData.hindiName)
-    this.addForm.reset()
+    this.apiServ.postData(this.guestData).subscribe((result) => {
+      this.handler(result);
+    });
+    console.log(this.guestData.hindiName);
+    this.addForm.reset();
   }
   //Close Modal
   onclose() {
